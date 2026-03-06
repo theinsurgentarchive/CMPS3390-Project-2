@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8crrvfb741yg"]
 
-[ext_resource type="Script" uid="uid://u4cnetcyft8w" path="res://main_menu.gd" id="1_wut1r"]
+[ext_resource type="Script" uid="uid://u4cnetcyft8w" path="res://Scripts/main_menu.gd" id="1_60k44"]
 
 [sub_resource type="GDScript" id="GDScript_83s16"]
 script/source = "extends Button
@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 [node name="MainMenu" type="Control" unique_id=596207208]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_wut1r")
+script = ExtResource("1_60k44")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2086393522]
 layout_mode = 0
