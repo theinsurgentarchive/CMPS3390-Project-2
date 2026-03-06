@@ -1,20 +1,25 @@
 [gd_scene format=3 uid="uid://cqmwe87630osr"]
 
 [ext_resource type="Script" uid="uid://bulnd3gfuqyda" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://d2ga8kjthhyre" path="res://icon.svg" id="2_onrkg"]
 
-[node name="Player" type="Node2D" unique_id=368552701]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
+size = Vector2(63.999996, 64)
+
+[node name="Player" type="CharacterBody2D" unique_id=836820942]
 script = ExtResource("1_4flbx")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1007469460]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.59734654, 0.59734637, 1)
+[node name="Camera" type="Camera2D" parent="." unique_id=785382877]
+position = Vector2(-1.9073486e-06, 0)
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1065308002]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_onrkg")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1571489586]
+position = Vector2(-1.9073486e-06, 0)
+shape = SubResource("RectangleShape2D_i3pqv")
