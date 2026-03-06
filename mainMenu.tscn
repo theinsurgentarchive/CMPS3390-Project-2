@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c8crrvfb741yg"]
+
+[ext_resource type="Script" uid="uid://u4cnetcyft8w" path="res://main_menu.gd" id="1_wut1r"]
+
+[sub_resource type="GDScript" id="GDScript_83s16"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="MainMenu" type="Control" unique_id=596207208]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wut1r")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2086393522]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -48.0
+offset_right = 1229.0
+offset_bottom = 679.0
+color = Color(0.014631171, 0.7472807, 0.75445366, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=60755855]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 400.0
+offset_right = 681.0
+offset_bottom = 433.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=531022763]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1632755159]
+layout_mode = 2
+action_mode = 0
+text = "Open"
+script = SubResource("GDScript_83s16")
+
+[node name="Label" type="Label" parent="." unique_id=147808781]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 239.0
+offset_right = 639.0
+offset_bottom = 262.0
+text = "Temporary Title!"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
