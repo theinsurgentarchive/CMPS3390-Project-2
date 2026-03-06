@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://bulnd3gfuqyda" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://d2ga8kjthhyre" path="res://icon.svg" id="2_onrkg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
-size = Vector2(63.999996, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+radius = 32.01562
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(64, 64)
 
 [node name="Player" type="CharacterBody2D" unique_id=836820942]
 script = ExtResource("1_4flbx")
@@ -20,6 +23,12 @@ rotation = 1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_onrkg")
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1571489586]
+[node name="WallCollide" type="CollisionShape2D" parent="." unique_id=1571489586]
 position = Vector2(-1.9073486e-06, 0)
-shape = SubResource("RectangleShape2D_i3pqv")
+shape = SubResource("CircleShape2D_cvnsp")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1384495863]
+collision_layer = 2
+
+[node name="Collision" type="CollisionShape2D" parent="HitBox" unique_id=1392856289]
+shape = SubResource("RectangleShape2D_cvnsp")

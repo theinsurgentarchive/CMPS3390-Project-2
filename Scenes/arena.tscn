@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ue6wcaqvm81p"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_jdqfs"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lq7nq"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ra5jo"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nnts3"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jdqfs"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jdqfs"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5)])
+
+[node name="arena" type="StaticBody2D" unique_id=106535543]
+metadata/_edit_lock_ = true
+
+[node name="ground" type="MeshInstance2D" parent="." unique_id=625720970]
+modulate = Color(0.40392157, 0.654902, 0.65882355, 1)
+scale = Vector2(2000, 2000)
+mesh = SubResource("QuadMesh_jdqfs")
+metadata/_edit_lock_ = true
+
+[node name="North Border" type="CollisionShape2D" parent="." unique_id=980163320]
+position = Vector2(0, -1000)
+shape = SubResource("WorldBoundaryShape2D_lq7nq")
+metadata/_edit_lock_ = true
+
+[node name="South Border" type="CollisionShape2D" parent="." unique_id=448205125]
+position = Vector2(0, 1000)
+shape = SubResource("WorldBoundaryShape2D_ra5jo")
+metadata/_edit_lock_ = true
+
+[node name="West Border" type="CollisionShape2D" parent="." unique_id=1551751834]
+position = Vector2(-1000, 0)
+shape = SubResource("WorldBoundaryShape2D_nnts3")
+metadata/_edit_lock_ = true
+
+[node name="East Border" type="CollisionShape2D" parent="." unique_id=1581468243]
+position = Vector2(1000, 0)
+shape = SubResource("WorldBoundaryShape2D_jdqfs")
+metadata/_edit_lock_ = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1796284820]
+scale = Vector2(2000, 2000)
+navigation_polygon = SubResource("NavigationPolygon_jdqfs")

@@ -9,4 +9,6 @@ func get_input():
 func _physics_process(delta: float) -> void:
 	get_input()
 	look_at(get_global_mouse_position())
-	move_and_collide(velocity * delta)
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.slide(collision.get_normal())
