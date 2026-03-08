@@ -13,9 +13,12 @@ script = ExtResource("1_oe8ih")
 [node name="hudLayer" type="CanvasLayer" parent="." unique_id=100206208]
 
 [node name="hud" parent="hudLayer" unique_id=678604282 instance=ExtResource("1_ej4tk")]
+metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." unique_id=836820942 instance=ExtResource("1_n4psk")]
 
-[node name="Enemies" type="Node2D" parent="." unique_id=1556720948]
+[node name="Enemies" type="Node2D" parent="." unique_id=1556720948 groups=["Enemies"]]
 
 [node name="PowerUps" type="Node2D" parent="." unique_id=1813405962]
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1856388085 groups=["Projectiles"]]

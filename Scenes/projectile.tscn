@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bowjgonhhxd1b"]
+
+[ext_resource type="Texture2D" uid="uid://dlc1mg2nassrx" path="res://Sprites/RocketSprite.png" id="1_f8cdk"]
+[ext_resource type="Script" uid="uid://10p22fotav5b" path="res://Scripts/projectile.gd" id="1_yr2qt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f8cdk"]
+radius = 10.049875
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl4hk"]
+atlas = ExtResource("1_f8cdk")
+region = Rect2(0, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4467"]
+atlas = ExtResource("1_f8cdk")
+region = Rect2(7, 0, 7, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1077"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Bullet",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Railgun_slug",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_tl4hk")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_d4467")
+}],
+"loop": true,
+"name": &"Rocket",
+"speed": 5.0
+}]
+
+[node name="Projectile" type="CharacterBody2D" unique_id=622629643]
+script = ExtResource("1_yr2qt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2109491639]
+shape = SubResource("CircleShape2D_f8cdk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1857003872]
+rotation = 1.5707964
+scale = Vector2(3.003, 3.3)
+sprite_frames = SubResource("SpriteFrames_e1077")
+animation = &"Rocket"
+frame_progress = 0.08856692
+
+[node name="Timer" type="Timer" parent="." unique_id=1874893479]
+wait_time = 10.0
+one_shot = true
