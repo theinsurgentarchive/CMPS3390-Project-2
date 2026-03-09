@@ -10,15 +10,21 @@ script = ExtResource("1_oe8ih")
 
 [node name="Arena" parent="." unique_id=616441089 instance=ExtResource("2_kwrm5")]
 
-[node name="hudLayer" type="CanvasLayer" parent="." unique_id=100206208]
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=100206208]
 
-[node name="hud" parent="hudLayer" unique_id=678604282 instance=ExtResource("1_ej4tk")]
+[node name="HUD" parent="HudLayer" unique_id=678604282 instance=ExtResource("1_ej4tk")]
 metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." unique_id=836820942 instance=ExtResource("1_n4psk")]
 
-[node name="Enemies" type="Node2D" parent="." unique_id=1556720948 groups=["Enemies"]]
+[node name="StartupDelay" type="Timer" parent="." unique_id=1939601879]
+wait_time = 0.1
+one_shot = true
 
-[node name="PowerUps" type="Node2D" parent="." unique_id=1813405962]
+[node name="Enemies" type="Node" parent="." unique_id=1583425146 groups=["Enemies"]]
 
-[node name="Projectiles" type="Node2D" parent="." unique_id=1856388085 groups=["Projectiles"]]
+[node name="PowerUps" type="Node" parent="." unique_id=1912913508]
+
+[node name="Projectiles" type="Node" parent="." unique_id=1500112190 groups=["Projectiles"]]
+
+[connection signal="die" from="Player" to="." method="_on_player_die"]

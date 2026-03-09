@@ -45,7 +45,6 @@ radius = 9.0
 [node name="Projectile" type="CharacterBody2D" unique_id=622629643 groups=["Despawnable", "Projectiles"]]
 collision_layer = 0
 script = ExtResource("1_yr2qt")
-speed = 100.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1857003872]
 rotation = 1.5707964
