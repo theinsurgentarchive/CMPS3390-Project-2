@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dwd5uwvnydohi"]
+
+[ext_resource type="Script" uid="uid://b6pdy6nyfrmox" path="res://Scripts/game_over.gd" id="1_m5628"]
+
+[node name="GameOver" type="Control" unique_id=89719591]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m5628")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=159621864]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 1153.0
+offset_bottom = 648.0
+color = Color(0.014631171, 0.7472807, 0.75445366, 1)
+
+[node name="Label" type="Label" parent="ColorRect2" unique_id=2030142225]
+layout_mode = 1
+offset_left = 454.0
+offset_top = 226.0
+offset_right = 541.0
+offset_bottom = 249.0
+scale = Vector2(3, 3)
+text = "Game Over"
+
+[node name="Timer" type="Timer" parent="." unique_id=779398088]
+wait_time = 10.0
+one_shot = true

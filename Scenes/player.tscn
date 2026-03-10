@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cqmwe87630osr"]
 
 [ext_resource type="Script" uid="uid://bulnd3gfuqyda" path="res://Scripts/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://chuga03uksdjp" path="res://Scripts/health.gd" id="2_3smsa"]
 [ext_resource type="Texture2D" uid="uid://btjq8dl1cj25s" path="res://Sprites/PlayerIdle.png" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bpo1o6tptplan" path="res://Sprites/PlayerGuns.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cu3dhunx8kshl" path="res://Sprites/PlayerMoving.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://drinnees861oe" path="res://Sprites/PlayerRailgun.png" id="4_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://be8s26tbg2l0r" path="res://Sprites/PlayerRockets.png" id="5_3smsa"]
+[ext_resource type="Script" uid="uid://cqdimgirurmut" path="res://Scripts/hurt_box.gd" id="8_8erm5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
 atlas = ExtResource("2_6t5aa")
@@ -233,14 +235,24 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ek2"]
+size = Vector2(64, 64)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
 radius = 32.01562
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
-size = Vector2(64, 64)
-
 [node name="Player" type="CharacterBody2D" unique_id=836820942]
 script = ExtResource("1_4flbx")
+
+[node name="StartupDelay" type="Timer" parent="." unique_id=1446952353]
+wait_time = 0.5
+one_shot = true
+
+[node name="Health" type="Node" parent="." unique_id=1690091983]
+script = ExtResource("2_3smsa")
+maxHealth = 20.0
+iFrameLength = 0.25
+metadata/_custom_type_script = "uid://chuga03uksdjp"
 
 [node name="Camera" type="Camera2D" parent="." unique_id=785382877]
 position = Vector2(-1.9073486e-06, 0)
@@ -259,6 +271,14 @@ animation = &"Rockets_fire"
 frame_progress = 0.039654057
 offset = Vector2(-1, 0)
 
+[node name="Mussle" type="Marker2D" parent="Weapon" unique_id=1052093779]
+position = Vector2(-0.33300102, -14.242425)
+rotation = -1.5707964
+scale = Vector2(0.3030303, 0.33300033)
+
+[node name="Delay" type="Timer" parent="Weapon" unique_id=646586166]
+one_shot = true
+
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=253241635]
 texture_filter = 1
 position = Vector2(4, 1)
@@ -269,15 +289,21 @@ animation = &"Move"
 frame_progress = 0.31360576
 offset = Vector2(-1, 0)
 
+[node name="HurtBox" type="Area2D" parent="." unique_id=1262522507 node_paths=PackedStringArray("health")]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("8_8erm5")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://cqdimgirurmut"
+
+[node name="Collision" type="CollisionShape2D" parent="HurtBox" unique_id=1627737358]
+shape = SubResource("RectangleShape2D_f1ek2")
+debug_color = Color(0.91498876, 0.2732647, 0.26128647, 0.41960785)
+
 [node name="WallCollide" type="CollisionShape2D" parent="." unique_id=1571489586]
 position = Vector2(-1.9073486e-06, 0)
 shape = SubResource("CircleShape2D_cvnsp")
 
-[node name="HitBox" type="Area2D" parent="." unique_id=1384495863]
-collision_layer = 2
-
-[node name="Collision" type="CollisionShape2D" parent="HitBox" unique_id=1392856289]
-shape = SubResource("RectangleShape2D_cvnsp")
-
-[node name="Mussle" type="Marker2D" parent="." unique_id=1052093779]
-position = Vector2(51, 0)
+[connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]

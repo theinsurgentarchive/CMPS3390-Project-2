@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dlc1mg2nassrx" path="res://Sprites/RocketSprite.png" id="1_f8cdk"]
 [ext_resource type="Script" uid="uid://10p22fotav5b" path="res://Scripts/projectile.gd" id="1_yr2qt"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_f8cdk"]
-radius = 10.049875
+[ext_resource type="Script" uid="uid://b7heg2fbypyyh" path="res://Scripts/hit_box.gd" id="2_tl4hk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tl4hk"]
 atlas = ExtResource("1_f8cdk")
@@ -38,19 +36,39 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Projectile" type="CharacterBody2D" unique_id=622629643]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tl4hk"]
+size = Vector2(19, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f8cdk"]
+radius = 9.0
+
+[node name="Projectile" type="CharacterBody2D" unique_id=622629643 groups=["Despawnable", "Projectiles"]]
+collision_layer = 0
 script = ExtResource("1_yr2qt")
+speed = 100.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2109491639]
-shape = SubResource("CircleShape2D_f8cdk")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1857003872]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1857003872]
 rotation = 1.5707964
 scale = Vector2(3.003, 3.3)
 sprite_frames = SubResource("SpriteFrames_e1077")
 animation = &"Rocket"
 frame_progress = 0.08856692
 
+[node name="HitBox" type="Area2D" parent="." unique_id=609182305]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_tl4hk")
+metadata/_custom_type_script = "uid://b7heg2fbypyyh"
+
+[node name="Collision" type="CollisionShape2D" parent="HitBox" unique_id=1700007247]
+shape = SubResource("RectangleShape2D_tl4hk")
+debug_color = Color(0.9137255, 0.27450982, 0.2627451, 0.41960785)
+
+[node name="Wall_Collision" type="CollisionShape2D" parent="." unique_id=2109491639]
+shape = SubResource("CircleShape2D_f8cdk")
+
 [node name="Timer" type="Timer" parent="." unique_id=1874893479]
 wait_time = 10.0
 one_shot = true
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
