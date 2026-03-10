@@ -5,6 +5,7 @@ extends Control
 @export var settings_scene: String = "res://Scenes/settings.tscn"
 @export var credits_scene: String = "res://Scenes/credits.tscn"
 @export var leaderboards_scene: String = "res://Scenes/leaderboards.tscn"
+@export var quit_scene: String = "res://Scenes/quit.tscn"
 
 func _ready() -> void:
 	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
@@ -28,3 +29,7 @@ func _on_credits_btn_pressed() -> void:
 
 func _on_leader_btn_pressed() -> void:
 	get_tree().change_scene_to_file(leaderboards_scene)
+
+
+func _on_quit_btn_pressed() -> void:
+	get_tree().quit()
