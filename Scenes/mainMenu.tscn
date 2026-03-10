@@ -131,3 +131,5 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_pressed"]
+[connection signal="pressed" from="MarginContainer3/VBoxContainer/CreditsBtn" to="." method="_on_credits_btn_pressed"]
