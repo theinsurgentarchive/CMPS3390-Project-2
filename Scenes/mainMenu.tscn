@@ -1,20 +1,32 @@
 [gd_scene format=3 uid="uid://c8crrvfb741yg"]
 
 [ext_resource type="Script" uid="uid://u4cnetcyft8w" path="res://Scripts/main_menu.gd" id="1_60k44"]
+[ext_resource type="Texture2D" uid="uid://xxqxcdf7wmdj" path="res://Sprites/MENU_ALT.png" id="2_5pknu"]
+[ext_resource type="Texture2D" uid="uid://mg3wpxnypdxe" path="res://Sprites/Buttons.png" id="3_b7htb"]
 
-[sub_resource type="GDScript" id="GDScript_83s16"]
-script/source = "extends Button
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl13b"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(861, 95, 427, 149)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uny1"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(299, 95, 450, 150)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7htb"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(859, 380, 450, 150)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v10og"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(299, 380, 450, 150)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqm77"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(859, 661, 450, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snj4n"]
+atlas = ExtResource("3_b7htb")
+region = Rect2(299, 661, 450, 150)
 
 [node name="MainMenu" type="Control" unique_id=596207208]
 layout_mode = 3
@@ -27,23 +39,46 @@ offset_left = 3.0
 offset_top = -48.0
 offset_right = 1229.0
 offset_bottom = 679.0
-color = Color(0.014631171, 0.7472807, 0.75445366, 1)
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=1974997562]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = 2.0
+offset_right = -26.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5pknu")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=60755855]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 0
-offset_left = 480.0
-offset_top = 400.0
-offset_right = 681.0
-offset_bottom = 433.0
+offset_left = 700.0
+offset_top = 200.0
+offset_right = 1060.0
+offset_bottom = 320.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=531022763]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1632755159]
+[node name="StartBtn" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=385515564]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
-action_mode = 0
-text = "Start"
-script = SubResource("GDScript_83s16")
+texture_normal = SubResource("AtlasTexture_yl13b")
+texture_hover = SubResource("AtlasTexture_3uny1")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="." unique_id=147808781]
 layout_mode = 0
@@ -53,36 +88,46 @@ offset_right = 639.0
 offset_bottom = 262.0
 text = "Temporary Title!"
 
-[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=522286793]
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=979237692]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 0
-offset_left = 480.0
-offset_top = 440.0
-offset_right = 681.0
-offset_bottom = 473.0
+offset_left = 600.0
+offset_top = 350.0
+offset_right = 960.0
+offset_bottom = 470.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=65864014]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=13668223]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer2/VBoxContainer" unique_id=1681060690]
+[node name="SettingsBtn" type="TextureButton" parent="MarginContainer2/VBoxContainer" unique_id=898475624]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
-action_mode = 0
-text = "Settings"
-script = SubResource("GDScript_83s16")
+texture_normal = SubResource("AtlasTexture_b7htb")
+texture_hover = SubResource("AtlasTexture_v10og")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=596127630]
+[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=1829981687]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 0
-offset_left = 480.0
-offset_top = 480.0
-offset_right = 681.0
-offset_bottom = 513.0
+offset_left = 500.0
+offset_top = 500.0
+offset_right = 860.0
+offset_bottom = 620.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3" unique_id=269496520]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3" unique_id=2098566575]
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer3/VBoxContainer" unique_id=372423166]
+[node name="CreditsBtn" type="TextureButton" parent="MarginContainer3/VBoxContainer" unique_id=635324772]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
-action_mode = 0
-text = "Credits"
-script = SubResource("GDScript_83s16")
+texture_normal = SubResource("AtlasTexture_kqm77")
+texture_hover = SubResource("AtlasTexture_snj4n")
+ignore_texture_size = true
+stretch_mode = 0
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
