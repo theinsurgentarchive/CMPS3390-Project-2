@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_start_btn_pressed() -> void:
+	# Go to name entry first
 	get_tree().change_scene_to_file(start_scene)
 
 func _on_settings_btn_pressed() -> void:
@@ -26,10 +27,8 @@ func _on_settings_btn_pressed() -> void:
 func _on_credits_btn_pressed() -> void:
 	get_tree().change_scene_to_file(credits_scene)
 
-
 func _on_leader_btn_pressed() -> void:
 	get_tree().change_scene_to_file(leaderboards_scene)
-
 
 func _on_quit_btn_pressed() -> void:
 	get_tree().quit()

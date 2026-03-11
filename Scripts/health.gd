@@ -14,11 +14,11 @@ var iFrameTimer: Timer = null
 @onready var health: float = maxHealth : set = setHealth, get = getHealth
 
 # Setters
-func setMaxHealth(max: float):
+func setMaxHealth(m: float):
 	# Clamp value
 	var value = 1.0 
-	if max > 0:
-		value = max
+	if m > 0:
+		value = m
 	
 	# Set max health
 	if value != maxHealth:
@@ -69,6 +69,7 @@ func temporaryInvul(secs: float):
 		iFrameTimer = Timer.new()
 		iFrameTimer.one_shot = true
 		iFrameTimer.name = "IFrameTimer"
+		iFrameTimer.wait_time = secs
 		add_child(iFrameTimer)
 	
 	# Reset

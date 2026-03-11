@@ -2,7 +2,21 @@
 
 [ext_resource type="Texture2D" uid="uid://dlc1mg2nassrx" path="res://Sprites/RocketSprite.png" id="1_f8cdk"]
 [ext_resource type="Script" uid="uid://10p22fotav5b" path="res://Scripts/projectile.gd" id="1_yr2qt"]
+[ext_resource type="Texture2D" uid="uid://d1ryqmh8aluyk" path="res://Sprites/BulletSpriteBlue.png" id="2_e1077"]
 [ext_resource type="Script" uid="uid://b7heg2fbypyyh" path="res://Scripts/hit_box.gd" id="2_tl4hk"]
+[ext_resource type="Texture2D" uid="uid://dtqnopekmkcfw" path="res://Sprites/SlugSprite.png" id="4_cgh1o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cu5m1"]
+atlas = ExtResource("2_e1077")
+region = Rect2(0, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsyq6"]
+atlas = ExtResource("2_e1077")
+region = Rect2(7, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_augfd"]
+atlas = ExtResource("2_e1077")
+region = Rect2(14, 0, 7, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tl4hk"]
 atlas = ExtResource("1_f8cdk")
@@ -12,16 +26,24 @@ region = Rect2(0, 0, 7, 7)
 atlas = ExtResource("1_f8cdk")
 region = Rect2(7, 0, 7, 7)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iiay"]
+atlas = ExtResource("4_cgh1o")
+region = Rect2(0, 0, 7, 7)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_e1077"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 0.45,
+"texture": SubResource("AtlasTexture_cu5m1")
+}, {
+"duration": 0.45,
+"texture": SubResource("AtlasTexture_rsyq6")
+}, {
+"duration": 0.45,
+"texture": SubResource("AtlasTexture_augfd")
+}],
 "loop": true,
 "name": &"Bullet",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"Railgun_slug",
 "speed": 5.0
 }, {
 "frames": [{
@@ -34,6 +56,14 @@ animations = [{
 "loop": true,
 "name": &"Rocket",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iiay")
+}],
+"loop": true,
+"name": &"Slug",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tl4hk"]
@@ -43,16 +73,15 @@ size = Vector2(19, 19)
 radius = 9.0
 
 [node name="Projectile" type="CharacterBody2D" unique_id=622629643 groups=["Despawnable", "Projectiles"]]
-collision_layer = 0
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_yr2qt")
-speed = 100.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1857003872]
 rotation = 1.5707964
 scale = Vector2(3.003, 3.3)
 sprite_frames = SubResource("SpriteFrames_e1077")
 animation = &"Rocket"
-frame_progress = 0.08856692
 
 [node name="HitBox" type="Area2D" parent="." unique_id=609182305]
 collision_layer = 4

@@ -12,8 +12,9 @@ enum weapons {
 @export var speed: float = 300.0
 @export var defaultSelect: int = 0
 @export var projectile: PackedScene = load("res://Scenes/projectile.tscn")
-@export var maxProjectiles: int = 20
 @export var weaponDelay: Array = [0.1, 0.2, 3]
+@onready var maxProjectiles = get_tree().current_scene.get("maxProjectiles")
+var targets: Array
 var select = 0
 var maxWeapons = 3
 var wepAnim = {
@@ -28,8 +29,8 @@ func _ready() -> void:
 	$Body.play(bodyAnim[0])
 	$Weapon.play(wepAnim.idle[0])
 
-func _on_hurt_box_got_hurt(damage: float) -> void:
-	print("Health: " + str($Health.getHealth()))
+func _on_hurt_box_got_hurt(_damage: float) -> void:
+	print_debug("Health: " + str($Health.getHealth()))
 	if $Health.iFrameTimer == null:
 		$Health.temporaryInvul($Health.iFrameLength)
 	else:
@@ -37,7 +38,7 @@ func _on_hurt_box_got_hurt(damage: float) -> void:
 			$Health.temporaryInvul($Health.iFrameLength)
 
 func _on_health_health_empty() -> void:
-	print("Health Depleted")
+	print_debug("Health Depleted")
 	if !$Health.getInvul():
 		die.emit()
 	
@@ -90,6 +91,7 @@ func wepHandler():
 		if (checkProjectiles() && $Weapon/Delay.is_stopped()):
 			var p = projectile.instantiate()
 			get_tree().current_scene.get_node("Projectiles").add_child(p)
+			p.setType(select, targets)
 			p.global_position = $Weapon/Mussle.global_position
 			p.rotation = $Weapon/Mussle.global_rotation
 			p.name = "P Projectile"
@@ -101,16 +103,26 @@ func wepHandler():
 			$Weapon.play(anim)
 
 func checkProjectiles() -> bool:
-	var group = get_tree().get_nodes_in_group("Projectiles")
-	var num = 0
-	for item in group:
-		if item.name.contains("P Projectile"):
-			num += 1
-	if num >= maxProjectiles:
-		return false
-	else:
-		return true
+	return get_tree().current_scene.get("projectilesSpawn")
+
+func _process(delta: float) -> void:
+	targets = targets.filter(
+		func(target):
+			return is_instance_valid(target)
+	)
+	if Input.is_action_just_pressed("Pause"):
+		$Health.setHealth(0.0)
 
 func _physics_process(delta: float) -> void:
 	moveHandler(delta)
 	wepHandler()
+
+
+func _on_lock_on_box_body_entered(body: Node2D) -> void:
+	if body == self || body is Projectile || body is Arena:
+		return
+	
+	targets.append(body)
+
+func _on_lock_on_box_body_exited(body: Node2D) -> void:
+	targets.erase(body)

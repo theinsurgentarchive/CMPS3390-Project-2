@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://cqmwe87630osr" path="res://Scenes/player.tscn" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
-[ext_resource type="PackedScene" uid="uid://ckkqa8jfg25sf" path="res://Scenes/fodderEnemy.tscn" id="5_r8bcl"]
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")
@@ -18,12 +17,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Projectiles" type="Node" parent="." unique_id=1500112190 groups=["Projectiles"]]
 
-[node name="Player" parent="." unique_id=836820942 instance=ExtResource("1_n4psk")]
-
 [node name="Enemies" type="Node" parent="." unique_id=1583425146 groups=["Enemies"]]
-
-[node name="FodderEnemy" parent="Enemies" unique_id=1286459885 instance=ExtResource("5_r8bcl")]
-position = Vector2(-194, 1)
 
 [node name="PowerUps" type="Node" parent="." unique_id=1912913508]
 
