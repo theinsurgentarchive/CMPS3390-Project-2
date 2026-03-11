@@ -7,9 +7,6 @@ extends Control
 @export var leaderboards_scene: String = "res://Scenes/leaderboards.tscn"
 @export var quit_scene: String = "res://Scenes/quit.tscn"
 
-# NEW: scene to ask for player name
-@export var name_entry_scene: String = "res://Scenes/name_entry.tscn"
-
 func _ready() -> void:
 	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
 	# Safely grab it if it exists in the scene tree.
