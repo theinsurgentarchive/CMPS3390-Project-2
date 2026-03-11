@@ -8,8 +8,9 @@ func _ready() -> void:
 	var file = FileAccess
 	var path = "res://sql/data.db"
 	db.path = path
-	db.open_db()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	var dbOK = db.open_db()
+	if !dbOK:
+		printerr(Error.ERR_CANT_CONNECT)
+		return
+	var q = file.get_file_as_string("res://sql/sqltables.sql")
+	db.query(q)

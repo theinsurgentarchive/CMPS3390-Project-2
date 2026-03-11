@@ -10,7 +10,7 @@ func _ready():
 	
 
 func _on_area_entered(area: Area2D):
-	if $"." is Player && area.owner.name.contains("P Projectile"):
+	if self.owner is Player && area.owner.name.contains("P Projectile"):
 		return
 	if area is HitBox:
 		var hp = health.health - area.damage

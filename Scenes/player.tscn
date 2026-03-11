@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cqmwe87630osr"]
 
 [ext_resource type="Script" uid="uid://bulnd3gfuqyda" path="res://Scripts/player.gd" id="1_4flbx"]
-[ext_resource type="Script" path="res://Scripts/health.gd" id="2_3smsa"]
+[ext_resource type="Script" uid="uid://chuga03uksdjp" path="res://Scripts/health.gd" id="2_3smsa"]
 [ext_resource type="Texture2D" uid="uid://btjq8dl1cj25s" path="res://Sprites/PlayerIdle.png" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bpo1o6tptplan" path="res://Sprites/PlayerGuns.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cu3dhunx8kshl" path="res://Sprites/PlayerMoving.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://drinnees861oe" path="res://Sprites/PlayerRailgun.png" id="4_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://be8s26tbg2l0r" path="res://Sprites/PlayerRockets.png" id="5_3smsa"]
-[ext_resource type="Script" uid="uid://b1q3n4248h57j" path="res://Scripts/PlayerHurtBox.gd" id="8_8erm5"]
+[ext_resource type="Script" uid="uid://cqdimgirurmut" path="res://Scripts/hurt_box.gd" id="8_8erm5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
 atlas = ExtResource("2_6t5aa")
@@ -235,9 +235,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8erm5"]
-radius = 113.0
-height = 254.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_8erm5"]
+radius = 556.0036
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ek2"]
 size = Vector2(64, 64)
@@ -246,6 +245,8 @@ size = Vector2(64, 64)
 radius = 32.01562
 
 [node name="Player" type="CharacterBody2D" unique_id=836820942]
+z_index = 2
+collision_layer = 0
 script = ExtResource("1_4flbx")
 
 [node name="StartupDelay" type="Timer" parent="." unique_id=1446952353]
@@ -292,12 +293,13 @@ animation = &"Move"
 frame_progress = 0.31360576
 offset = Vector2(-1, 0)
 
-[node name="LockOnBox" type="Area2D" parent="." unique_id=1669049620]
+[node name="TargetBox" type="Area2D" parent="." unique_id=1669049620]
+collision_layer = 2
 collision_mask = 7
 
-[node name="Collision" type="CollisionShape2D" parent="LockOnBox" unique_id=1115914512]
-shape = SubResource("CapsuleShape2D_8erm5")
-debug_color = Color(0.3019608, 0.6, 0.18039216, 0.41960785)
+[node name="TargetRange" type="CollisionShape2D" parent="TargetBox" unique_id=1115914512]
+shape = SubResource("CircleShape2D_8erm5")
+debug_color = Color(0.3019608, 0.6, 0.18039216, 0.07058824)
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1262522507 node_paths=PackedStringArray("health")]
 collision_layer = 2
@@ -315,7 +317,7 @@ position = Vector2(-1.9073486e-06, 0)
 shape = SubResource("CircleShape2D_cvnsp")
 
 [connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
-[connection signal="body_entered" from="LockOnBox" to="." method="_on_lock_on_box_body_entered"]
-[connection signal="body_exited" from="LockOnBox" to="." method="_on_lock_on_box_body_exited"]
+[connection signal="body_entered" from="TargetBox" to="." method="_on_lock_on_box_body_entered"]
+[connection signal="body_exited" from="TargetBox" to="." method="_on_lock_on_box_body_exited"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]

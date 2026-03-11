@@ -15,4 +15,4 @@ func _on_button_pressed() -> void:
 		_on_line_edit_text_submitted($UserInput.text)
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
