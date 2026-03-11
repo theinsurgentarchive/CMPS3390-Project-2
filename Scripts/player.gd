@@ -11,9 +11,9 @@ enum weapons {
 # Global Variables
 @export var speed: float = 300.0
 @export var defaultSelect: int = 0
-@export var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 @export var weaponDelay: Array = [0.1, 0.2, 3]
 @onready var maxProjectiles = get_tree().current_scene.get("maxProjectiles")
+var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 var targets: Array
 var select = 0
 var maxWeapons = 3
