@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://daf7ov5hreexr"]
+
+[ext_resource type="Script" uid="uid://cutlfsggsal7j" path="res://Scripts/name_entry.gd" id="1_0cmnf"]
+
+[node name="NameEntry" type="Control" unique_id=1297437007]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0cmnf")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1836958530]
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 648.0
+color = Color(0.5888667, 0.00026337148, 0.59194434, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=1275025618]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 291.0
+offset_right = 766.0
+offset_bottom = 462.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer" unique_id=2043160174]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1531728590]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Enter Your Name
+"
+horizontal_alignment = 1
+
+[node name="NameInput" type="LineEdit" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=963797057]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=449292188]
+layout_mode = 2
+text = "Continue"
+
+[node name="ErrorLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1978715353]
+layout_mode = 2
+
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_btn_pressed"]
