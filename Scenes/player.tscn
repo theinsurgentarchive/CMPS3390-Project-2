@@ -302,7 +302,7 @@ debug_color = Color(0.3019608, 0.6, 0.18039216, 0.07058824)
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1262522507 node_paths=PackedStringArray("health")]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("8_8erm5")
 health = NodePath("../Health")
 metadata/_custom_type_script = "uid://cqdimgirurmut"
