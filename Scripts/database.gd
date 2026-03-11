@@ -14,3 +14,34 @@ func _ready() -> void:
 		return
 	var q = file.get_file_as_string("res://sql/sqltables.sql")
 	db.query(q)
+
+func addScore(score: int, n: String):
+	var exists = db.select_rows("player", "name == '%s'" % [n], ["*"])
+	var binding
+	var query
+	var fail
+	var pid
+	if !exists.is_empty():
+		print_debug("Player already exists.")
+		pid = exists[0]["id"]
+		query = '''
+			INSERT INTO leaderboard(id, score) VALUES (:id, :score)
+			ON CONFLICT(id) DO UPDATE SET score = :score;
+		''';
+		binding = {"id": pid, "score": score}
+		fail = db.query_with_named_bindings(query, binding)
+		assert(fail, "Failed to insert Player " + str(pid) + " Score...")
+	else:
+		print_debug("Generating Player...")
+		query = "INSERT INTO player(name) VALUES (?)"
+		binding = [n]
+		fail = db.query_with_bindings(query, binding)
+		assert(fail, "Player generation failed...")
+		pid = db.last_insert_rowid
+		query = '''
+			INSERT INTO leaderboard(id, score) VALUES (:id, :score)
+			ON CONFLICT(id) DO UPDATE SET score = :score;
+		''';
+		binding = {"id": pid, "score": score}
+		fail = db.query_with_named_bindings(query, binding)
+		assert(fail, "Failed to insert Player " + str(pid) + " Score...")

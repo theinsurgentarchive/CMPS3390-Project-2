@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			pass
 		types.ROCKET:
 			if target != null:
-				lookAtSlowly(target, delta)
+				lookAtSlowly(delta)
 		types.SLUG:
 			pass
 	lastAngle = rotation
@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 		if object is Arena:
 			queue_free()
 
-func lookAtSlowly(target: Node2D, delta: float):
+func lookAtSlowly(delta: float):
 	var t_vector = (target.global_position - global_position).normalized()
 	var t_angle = t_vector.angle()
 	rotation = rotate_toward(rotation, t_angle, deg_to_rad(rot_accel) * delta)

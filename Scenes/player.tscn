@@ -9,10 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://be8s26tbg2l0r" path="res://Sprites/PlayerRockets.png" id="5_3smsa"]
 [ext_resource type="Script" uid="uid://cqdimgirurmut" path="res://Scripts/hurt_box.gd" id="8_8erm5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
-atlas = ExtResource("2_6t5aa")
-region = Rect2(0, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
 atlas = ExtResource("2_vgqql")
 region = Rect2(0, 0, 32, 32)
@@ -31,6 +27,10 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
 atlas = ExtResource("2_vgqql")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("2_6t5aa")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
@@ -88,14 +88,6 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_pu2lt"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h4iuc")
-}],
-"loop": true,
-"name": &"Default",
-"speed": 5.0
-}, {
-"frames": [{
 "duration": 0.4,
 "texture": SubResource("AtlasTexture_vgqql")
 }, {
@@ -118,6 +110,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Guns_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4iuc")
+}],
+"loop": true,
+"name": &"None",
 "speed": 5.0
 }, {
 "frames": [{
@@ -271,8 +271,7 @@ position = Vector2(4, 1)
 rotation = 1.5707964
 scale = Vector2(3.003, 3.3)
 sprite_frames = SubResource("SpriteFrames_pu2lt")
-animation = &"Rockets_fire"
-frame_progress = 0.039654057
+animation = &"None"
 offset = Vector2(-1, 0)
 
 [node name="Mussle" type="Marker2D" parent="Weapon" unique_id=1052093779]
@@ -285,7 +284,7 @@ one_shot = true
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=253241635]
 texture_filter = 1
-position = Vector2(4, 1)
+position = Vector2(4, 1.5)
 rotation = 1.5707964
 scale = Vector2(3.003, 3.3)
 sprite_frames = SubResource("SpriteFrames_gymyn")

@@ -2,6 +2,7 @@ class_name Manager
 extends Node2D
 
 @export var maxProjectiles: int = 20
+var projectilesSpawn:bool = true
 var db: Database
 var s: Score
 
@@ -24,22 +25,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var positionElement = $HudLayer/HUD/Position
 	var healthElement = $HudLayer/HUD/Health
-	var nameElement = $HudLayer/HUD/PlayerName
 
 	positionElement.text = "Position: " + str($Player.position)
 	healthElement.text = "Health: " + str($Player/Health.getHealth())
-	
-
-	# ✅ Correct way to access an Autoload called "GameData"
-	var pname := ""
-	if has_node("/root/GameData"):
-		pname = get_node("/root/GameData").player_name
-
-	if pname.strip_edges() == "":
-		pname = "Player"
-
-	nameElement.text = "Name: " + pname
-
+	var group = get_tree().get_nodes_in_group("Projectiles")
+	var num = group.size()
+	if num >= maxProjectiles:
+		projectilesSpawn = false
+	else:
+		projectilesSpawn = true
 
 func _on_player_die() -> void:
 	call_deferred("gameOver")
