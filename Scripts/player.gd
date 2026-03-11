@@ -35,6 +35,7 @@ func _on_hurt_box_got_hurt(damage: float) -> void:
 	else:
 		if $Health.iFrameTimer.is_stopped() && $Health.health > 0:
 			$Health.temporaryInvul($Health.iFrameLength)
+
 func _on_health_health_empty() -> void:
 	print("Health Depleted")
 	if !$Health.getInvul():

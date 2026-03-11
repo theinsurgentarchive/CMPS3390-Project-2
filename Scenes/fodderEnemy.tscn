@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://ckkqa8jfg25sf"]
+
+[ext_resource type="Script" uid="uid://l5tt74uy5hxb" path="res://Scripts/fodder_enemy.gd" id="1_27mmj"]
+[ext_resource type="Script" uid="uid://chuga03uksdjp" path="res://Scripts/health.gd" id="2_bymjw"]
+[ext_resource type="Texture2D" uid="uid://tw5iu4v3r2un" path="res://Sprites/FodderEnemySprite.png" id="2_csb4c"]
+[ext_resource type="Script" uid="uid://cqdimgirurmut" path="res://Scripts/hurt_box.gd" id="4_cyxbf"]
+[ext_resource type="Script" uid="uid://b7heg2fbypyyh" path="res://Scripts/hit_box.gd" id="5_cyxbf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bymjw"]
+radius = 23.0
+
+[node name="FodderEnemy" type="CharacterBody2D" unique_id=1163462337 groups=["Enemies"]]
+script = ExtResource("1_27mmj")
+
+[node name="Health" type="Node" parent="." unique_id=1384280465]
+script = ExtResource("2_bymjw")
+maxHealth = 5.0
+iFrameLength = 0.0
+metadata/_custom_type_script = "uid://chuga03uksdjp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1397372703]
+scale = Vector2(0.99, 0.99)
+shape = SubResource("CircleShape2D_bymjw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1137601791]
+scale = Vector2(5, 5)
+texture = ExtResource("2_csb4c")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1044999573 node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("4_cyxbf")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://cqdimgirurmut"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1889799178]
+shape = SubResource("CircleShape2D_bymjw")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1962012153]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("5_cyxbf")
+metadata/_custom_type_script = "uid://b7heg2fbypyyh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=15369868]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("CircleShape2D_bymjw")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
+[connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]
