@@ -54,8 +54,14 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
 		return
 	for body in area.get_overlapping_bodies():
-		if body is Player && $".".name.contains("P Projectile"):
-			return
+		if $".".name.contains("P Projectile"):
+			if body is Enemy:
+				queue_free()
+			if body is Player:
+				return
+			
+			
+			
 
 func _on_timer_timeout():
 	queue_free()

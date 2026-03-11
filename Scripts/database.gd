@@ -15,6 +15,16 @@ func _ready() -> void:
 	var q = file.get_file_as_string("res://sql/sqltables.sql")
 	db.query(q)
 
+func getEnemy(type: int):
+	var exists = db.select_rows("enemy", "id == '%s'" % [str(type)], ["*"])
+	assert(!exists.is_empty(), "Enemy not found...");
+	return exists[0]
+
+func getWeapon(type: int):
+	var exists = db.select_rows("weapon", "id == '%s'" % [str(type)], ["*"])
+	assert(!exists.is_empty(), "Weapon not found...");
+	return exists[0]
+
 func addScore(score: int, n: String):
 	var exists = db.select_rows("player", "name == '%s'" % [n], ["*"])
 	var binding

@@ -5,8 +5,15 @@ extends Node2D
 var projectilesSpawn:bool = true
 var db: Database
 var s: Score
+var e: Enemy
+var time: Timer
+var enemy: PackedScene = load("res://Scenes/Enemy.tscn")
 
 func _ready() -> void:
+	time = Timer.new()
+	get_tree().current_scene.add_child(time)
+	time.one_shot = true
+	time.wait_time = 2.5
 	if get_tree().root.get_node_or_null("Database") == null:
 		db = Database.new()
 		get_tree().root.add_child(db)
@@ -19,7 +26,6 @@ func _ready() -> void:
 		s.name = "Score"
 	else:
 		s = get_tree().root.get_node("Score")
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -34,9 +40,21 @@ func _process(delta: float) -> void:
 		projectilesSpawn = false
 	else:
 		projectilesSpawn = true
+	if e == null && time.is_stopped():
+		print("Enemy respawned")
+		e = enemy.instantiate()
+		get_tree().current_scene.get_node("Enemies").add_child(e)
+		e.add_to_group("Enemies")
+		e.type = 1
+		e.enemyDeath.connect(_on_enemy_death)
 
 func _on_player_die() -> void:
 	call_deferred("gameOver")
+
+func _on_enemy_death(value: int) -> void:
+	s.setScore(s.score + value)
+	time.start()
+	print("Enemy died")
 
 func gameOver():
 	if is_instance_valid($Player):
