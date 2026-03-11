@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dlrggk6n8kj7a"]
+
+[node name="Leaderboards" type="Node2D" unique_id=866967535]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1136256742]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.2004275, 0.45099533, 0.19081166, 1)
