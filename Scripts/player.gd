@@ -29,15 +29,16 @@ func _ready() -> void:
 	$Body.play(bodyAnim[0])
 	$Weapon.play(wepAnim.idle[0])
 
-func _on_hurt_box_got_hurt(damage: float) -> void:
-	print("Health: " + str($Health.getHealth()))
+func _on_hurt_box_got_hurt(_damage: float) -> void:
+	print_debug("Health: " + str($Health.getHealth()))
 	if $Health.iFrameTimer == null:
 		$Health.temporaryInvul($Health.iFrameLength)
 	else:
 		if $Health.iFrameTimer.is_stopped() && $Health.health > 0:
 			$Health.temporaryInvul($Health.iFrameLength)
+
 func _on_health_health_empty() -> void:
-	print("Health Depleted")
+	print_debug("Health Depleted")
 	if !$Health.getInvul():
 		die.emit()
 	
@@ -102,21 +103,15 @@ func wepHandler():
 			$Weapon.play(anim)
 
 func checkProjectiles() -> bool:
-	var group = get_tree().get_nodes_in_group("Projectiles")
-	var num = 0
-	for item in group:
-		if item.name.contains("P Projectile"):
-			num += 1
-	if num >= maxProjectiles:
-		return false
-	else:
-		return true
+	return get_tree().current_scene.get("projectilesSpawn")
 
 func _process(delta: float) -> void:
 	targets = targets.filter(
 		func(target):
 			return is_instance_valid(target)
 	)
+	if Input.is_action_just_pressed("Pause"):
+		$Health.setHealth(0.0)
 
 func _physics_process(delta: float) -> void:
 	moveHandler(delta)

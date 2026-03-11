@@ -20,10 +20,3 @@ offset_top = 19.0
 offset_right = 56.0
 offset_bottom = 42.0
 text = "Health:"
-
-[node name="PlayerName" type="Label" parent="." unique_id=1959439044]
-layout_mode = 0
-offset_top = 36.0
-offset_right = 56.0
-offset_bottom = 59.0
-text = "Name:"

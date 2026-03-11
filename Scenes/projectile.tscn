@@ -81,8 +81,7 @@ script = ExtResource("1_yr2qt")
 rotation = 1.5707964
 scale = Vector2(3.003, 3.3)
 sprite_frames = SubResource("SpriteFrames_e1077")
-animation = &"Bullet"
-frame_progress = 0.9284272
+animation = &"Rocket"
 
 [node name="HitBox" type="Area2D" parent="." unique_id=609182305]
 collision_layer = 4
