@@ -7,6 +7,9 @@ extends Control
 @export var leaderboards_scene: String = "res://Scenes/leaderboards.tscn"
 @export var quit_scene: String = "res://Scenes/quit.tscn"
 
+# NEW: scene to ask for player name
+@export var name_entry_scene: String = "res://Scenes/name_entry.tscn"
+
 func _ready() -> void:
 	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
 	# Safely grab it if it exists in the scene tree.
@@ -18,7 +21,8 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_start_btn_pressed() -> void:
-	get_tree().change_scene_to_file(start_scene)
+	# Go to name entry first
+	get_tree().change_scene_to_file(name_entry_scene)
 
 func _on_settings_btn_pressed() -> void:
 	get_tree().change_scene_to_file(settings_scene)
@@ -26,10 +30,8 @@ func _on_settings_btn_pressed() -> void:
 func _on_credits_btn_pressed() -> void:
 	get_tree().change_scene_to_file(credits_scene)
 
-
 func _on_leader_btn_pressed() -> void:
 	get_tree().change_scene_to_file(leaderboards_scene)
-
 
 func _on_quit_btn_pressed() -> void:
 	get_tree().quit()

@@ -46,7 +46,7 @@ region = Rect2(223, 152, 1170, 278)
 atlas = ExtResource("5_3uny1")
 region = Rect2(223, 533, 1175, 263)
 
-[node name="MainMenu" type="Control" unique_id=596207208]
+[node name="MainMenu" type="Control" unique_id=726047092]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_60k44")
