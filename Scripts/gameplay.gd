@@ -1,6 +1,12 @@
+class_name Manager
 extends Node2D
 
-
+func _ready() -> void:
+	var db = Database.new()
+	get_tree().root.add_child(db)
+	db.name = "database"
+	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

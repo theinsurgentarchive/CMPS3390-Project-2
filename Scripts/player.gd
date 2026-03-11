@@ -14,6 +14,7 @@ enum weapons {
 @export var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 @export var maxProjectiles: int = 20
 @export var weaponDelay: Array = [0.1, 0.2, 3]
+var targets: Array
 var select = 0
 var maxWeapons = 3
 var wepAnim = {
@@ -88,7 +89,7 @@ func wepHandler():
 			$Weapon.play(anim)
 		if (checkProjectiles() && $Weapon/Delay.is_stopped()):
 			var p = projectile.instantiate()
-			get_tree().current_scene.get_node("Projectiles").add_child(p)
+			p.setType(select, targets)
 			p.global_position = $Weapon/Mussle.global_position
 			p.rotation = $Weapon/Mussle.global_rotation
 			p.name = "P Projectile"
@@ -110,6 +111,20 @@ func checkProjectiles() -> bool:
 	else:
 		return true
 
+func _process(delta: float) -> void:
+	targets = targets.filter(
+		func(target):
+			return is_instance_valid(target)
+	)
+
 func _physics_process(delta: float) -> void:
 	moveHandler(delta)
 	wepHandler()
+
+
+func _on_lock_on_box_body_entered(body: Node2D) -> void:
+	if body != Player:
+		targets.append(body)
+
+func _on_lock_on_box_body_exited(body: Node2D) -> void:
+	targets.erase(body)
