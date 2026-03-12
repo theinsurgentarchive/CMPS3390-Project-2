@@ -20,10 +20,18 @@ func getEnemy(type: int):
 	assert(!exists.is_empty(), "Enemy not found...");
 	return exists[0]
 
+func getEnemies():
+	var enemies = db.select_rows("enemy", "", ["*"])
+	return enemies
+
 func getWeapon(type: int):
 	var exists = db.select_rows("weapon", "id == '%s'" % [str(type)], ["*"])
 	assert(!exists.is_empty(), "Weapon not found...");
 	return exists[0]
+
+func getWeapons():
+	var weapons = db.select_rows("weapons", "", ["*"])
+	return weapons
 
 func addScore(score: int, n: String):
 	var exists = db.select_rows("player", "name == '%s'" % [n], ["*"])

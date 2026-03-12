@@ -59,6 +59,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				queue_free()
 			if body is Player:
 				return
+			if body.owner is Arena:
+				queue_free()
 			
 			
 			
@@ -86,7 +88,7 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var object = collision.get_collider()
-		if object is Arena:
+		if object.owner is Arena || object is Arena:
 			queue_free()
 
 func lookAtSlowly(delta: float):
