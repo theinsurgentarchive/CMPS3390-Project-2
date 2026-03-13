@@ -8,15 +8,19 @@ extends Control
 @export var quit_scene: String = "res://Scenes/quit.tscn"
 
 func _ready() -> void:
-	# Ensure Database exists as soon as the game starts (before any gameplay).
-	if get_tree().root.get_node_or_null("Database") == null:
-		var db: Database = Database.new()
+	# Start database node
+	var db = get_tree().root.get_node_or_null("Database")
+	if db == null:
+		db = Database.new()
 		db.name = "Database"
-		# Defer adding to root until it's safe
-		get_tree().root.call_deferred("add_child", db)
-		print_debug("MAIN_MENU: Deferring Database add_child() to /root/Database")
-	else:
-		print_debug("MAIN_MENU: Database already exists at /root/Database")
+		get_tree().root.add_child.call_deferred(db)
+
+	# Start score node
+	var s = get_tree().root.get_node_or_null("Score")
+	if s == null:
+		s = Score.new()
+		s.name = "Score"
+		get_tree().root.add_child.call_deferred(s)
 
 	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
 	var start_btn := get_node_or_null("ColorRect/MarginContainer/VBoxContainer/StartBtn")

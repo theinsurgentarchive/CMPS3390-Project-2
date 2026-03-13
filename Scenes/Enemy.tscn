@@ -7,12 +7,22 @@
 [ext_resource type="Script" uid="uid://b7heg2fbypyyh" path="res://Scripts/hit_box.gd" id="5_cyxbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bymjw"]
-radius = 23.0
+radius = 19.026299
 
-[node name="FodderEnemy" type="CharacterBody2D" unique_id=1163462337 groups=["Enemies"]]
+[node name="Enemy" type="CharacterBody2D" unique_id=1163462337 groups=["Enemies"]]
 z_index = 1
-collision_layer = 4
+collision_layer = 5
 script = ExtResource("1_27mmj")
+
+[node name="NavTimer" type="Timer" parent="." unique_id=862176712]
+wait_time = 0.6
+autostart = true
+
+[node name="Navigation" type="NavigationAgent2D" parent="." unique_id=276122656]
+simplify_epsilon = 3.0
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
 
 [node name="Health" type="Node" parent="." unique_id=1384280465]
 script = ExtResource("2_bymjw")
@@ -25,7 +35,8 @@ scale = Vector2(0.99, 0.99)
 shape = SubResource("CircleShape2D_bymjw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1137601791]
-scale = Vector2(5, 5)
+rotation = -1.5707964
+scale = Vector2(4, 4)
 texture = ExtResource("3_cyxbf")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1044999573 node_paths=PackedStringArray("health")]
@@ -49,5 +60,24 @@ scale = Vector2(1.1, 1.1)
 shape = SubResource("CircleShape2D_bymjw")
 debug_color = Color(1, 0, 0, 0.41960785)
 
+[node name="MussleDebug" type="ColorRect" parent="." unique_id=1831830830]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 43.0
+offset_top = -5.0
+offset_right = 53.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mussle" type="Marker2D" parent="." unique_id=1143781811]
+position = Vector2(48, 0)
+
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
+[connection signal="velocity_computed" from="Navigation" to="." method="_on_navigation_velocity_computed"]
 [connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
 [connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]
