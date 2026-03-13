@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://ckkqa8jfg25sf" path="res://Scenes/fodderEnemy.tscn" id="5_r8bcl"]
+[ext_resource type="PackedScene" uid="uid://c2eo06vuk10hl" path="res://Scenes/OrbitingEnemy.tscn" id="6_rlidi"]
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")
@@ -24,6 +25,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="FodderEnemy" parent="Enemies" unique_id=1286459885 instance=ExtResource("5_r8bcl")]
 position = Vector2(-194, 1)
+
+[node name="OrbitingEnemy" parent="Enemies" unique_id=1012956004 groups=["Enemies"] instance=ExtResource("6_rlidi")]
+position = Vector2(-191, 6)
 
 [node name="PowerUps" type="Node" parent="." unique_id=1912913508]
 

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name fodderEnemy
 
-@export var speed = 3
+@export var speed = 250
 @export var damage = 10
 @onready var player:CharacterBody2D = get_tree().current_scene.get_node("Player")
 
@@ -15,7 +15,7 @@ func _ready():
 	$HitBox.setDamage(damage)
 
 func _on_hurt_box_got_hurt(damage: float) -> void:
-	print("Health: " + str($Health.getHealth()))
+	print("Fodder Health: " + str($Health.getHealth()))
 
 func _movehandler(delta):
 	#if(rotation != position.direction_to(player.position).angle()):
@@ -28,12 +28,8 @@ func _movehandler(delta):
 	velocity = Vector2.ZERO
 	velocity = Vector2.RIGHT.rotated(rotation) * speed
 	#velocity = position.direction_to(player.position) * speed
+	velocity *= delta
 	var collision = move_and_collide(velocity)
-	if collision:
-		var object = collision.get_collider()
-		if object is Player:
-			pass
-		
 
 
 func _physics_process(delta: float) -> void:
