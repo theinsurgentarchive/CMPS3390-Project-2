@@ -9,6 +9,7 @@ enum weapons {
 	RAILGUN
 }
 # Global Variables
+@export var health: float = 100.0
 @export var speed: float = 300.0
 @export var defaultSelect: int = 0
 @export var weaponDelay: Array = [0.1, 0.2, 3]
@@ -29,6 +30,7 @@ func _ready() -> void:
 	$StartupDelay.start()
 	$Body.play(bodyAnim[0])
 	$Weapon.play(wepAnim.idle[0])
+	$Health.setMaxHealth(health)
 
 func _on_hurt_box_got_hurt(_damage: float) -> void:
 	# print_debug("Health: " + str($Health.getHealth()))

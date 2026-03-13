@@ -16,21 +16,44 @@ var target = null
 var currentSpeed = 0.0
 var rot_accel = 120.0
 var lastAngle = 0.0
-var enemy = false
+var enemy: bool
+var pierce: bool
 
 func setType(select: int, bodies: Array, mod: int):
-	if mod == 1:
+	enemy = (mod == 1)
+
+	# visuals
+	if enemy:
 		$Sprite.modulate = Color(1, 0.25, 0.25, 1.0)
 		$Sprite.scale = Vector2($Sprite.scale.x * 1.5, $Sprite.scale.y * 1.5)
-		enemy = true
+
+	# --- BODY collision setup (CharacterBody2D) ---
+	collision_layer = 0
+	set_collision_layer_value(3, true)
+
+	collision_mask = 0
+	set_collision_mask_value(1, true) # hit walls always
+
+	# This is the key: ghost projectiles do NOT collide with enemy bodies
+	if not pierce:
+		set_collision_mask_value(6, true)
+
+	# --- HitBox detection setup (Area2D) ---
+	$HitBox.collision_layer = 0
+	$HitBox.set_collision_layer_value(3, true)
+
+	$HitBox.collision_mask = 0
+	if enemy:
+		$HitBox.set_collision_mask_value(2, true)
+	else:
+		$HitBox.set_collision_mask_value(4, true)
+
+	# Your existing match() that sets sprite/type/speeds/damage:
 	match select:
 		0:
 			$Sprite.play("Bullet")
 			type = types.BULLET
-			if enemy:
-				currentSpeed = 325.0
-			else:
-				currentSpeed = 750.0
+			currentSpeed = 325.0 if enemy else 750.0
 			damage = 3.0
 		1:
 			$Sprite.play("Rocket")
@@ -43,6 +66,11 @@ func setType(select: int, bodies: Array, mod: int):
 			$HitBox/Collision.scale = Vector2(4.0, 4.0)
 			currentSpeed = 2000.0
 			damage = 40.0
+			# Slug should pierce by default:
+			pierce = true
+
+	# IMPORTANT: set HitBox damage AFTER deciding damage
+	$HitBox.setDamage(damage)
 
 func setTarget(targets: Array):
 	var closest = null
@@ -60,39 +88,23 @@ func setTarget(targets: Array):
 func _ready() -> void:
 	$Timer.timeout.connect(_on_timer_timeout)
 	$Timer.start(liveFor)
-	$HitBox.setDamage(damage)
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
 		return
-	if enemy:
-		print(area.owner)
-	for body in area.get_overlapping_bodies():
-		if !enemy:
-			if body.owner is Enemy && type != types.SLUG:
-				queue_free()
-			if body.owner is Player:
-				return
-			if body.owner is Projectile && body.get("enemy"):
-				queue_free()
-		else:
-			
-			if body.owner is Enemy:
-				return
-			if body.owner is Player:
-				queue_free()
-			if body.owner is Projectile && !body.get("enemy"):
-				queue_free()
-		if body.owner is Arena:
+	
+	if area is HurtBox:
+		if type != types.SLUG:
 			queue_free()
-			
-			
-			
+	if (
+		enemy && area.owner.name.contains("P Projectile") ||
+		!enemy && area.owner.name.contains("E Projectile")
+	):
+		queue_free()
 
 func _on_timer_timeout():
 	queue_free()
 
-@onready var proj = null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	match type:
@@ -108,7 +120,10 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var object = collision.get_collider()
-		if object.owner is Arena || object is Arena:
+		if type == types.SLUG:
+			if object.owner is Arena || object is Arena:
+				queue_free()
+		else:
 			queue_free()
 
 func lookAtSlowly(delta: float):
