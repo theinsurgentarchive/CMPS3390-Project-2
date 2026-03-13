@@ -246,7 +246,6 @@ radius = 32.01562
 
 [node name="Player" type="CharacterBody2D" unique_id=836820942]
 z_index = 2
-collision_layer = 0
 script = ExtResource("1_4flbx")
 
 [node name="StartupDelay" type="Timer" parent="." unique_id=1446952353]

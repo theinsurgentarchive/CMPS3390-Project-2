@@ -1,9 +1,17 @@
 extends CharacterBody2D
 
 @export var speed = 150
+@export var bullet:PackedScene=load("res://Scenes/orbiterBullet.tscn")
 @onready var player:CharacterBody2D = get_tree().current_scene.get_node("Player")
 
+func _Timeout():
+	var bul = bullet.instantiate()
+	bul.global_position = global_position
+	get_tree().current_scene.get_node("Projectiles").add_child(bul)
+	pass
 
+func _ready() -> void:
+	$Timer.timeout.connect(_Timeout)
 
 func _moveHandler(delta):
 	look_at(player.position)

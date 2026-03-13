@@ -21,25 +21,30 @@ maxHealth = 4.0
 metadata/_custom_type_script = "uid://chuga03uksdjp"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1019822828]
+position = Vector2(-10, 0)
 rotation = -1.5707964
 scale = Vector2(3, 3)
 texture = ExtResource("2_xx5m8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1355540868]
-position = Vector2(3, 0.25)
+position = Vector2(-7, 0.25)
 shape = SubResource("RectangleShape2D_od5ng")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1640630741 node_paths=PackedStringArray("health")]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 4
 script = ExtResource("4_0v73k")
 health = NodePath("../Health")
 metadata/_custom_type_script = "uid://cqdimgirurmut"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1687545106]
-position = Vector2(3, 0)
+position = Vector2(-7, 0)
 shape = SubResource("RectangleShape2D_it1p7")
 debug_color = Color(1, 0, 0, 0.41960785)
 
+[node name="Timer" type="Timer" parent="." unique_id=1507380805]
+autostart = true
+
 [connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]
