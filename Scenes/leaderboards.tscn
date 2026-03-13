@@ -1,8 +1,80 @@
 [gd_scene format=3 uid="uid://dlrggk6n8kj7a"]
 
-[node name="Leaderboards" type="Node2D" unique_id=866967535]
+[ext_resource type="Script" uid="uid://cylhvw5uxlfk8" path="res://Scenes/leaderboards.gd" id="1_4kg6k"]
+[ext_resource type="Texture2D" uid="uid://di4thio1v3opa" path="res://Sprites/Glowing leaderboard with pixelated star.png" id="2_n6tc2"]
+[ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="3_l7afy"]
+[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scenes/back_btn.gd" id="4_n0wk5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0wk5"]
+atlas = ExtResource("3_l7afy")
+region = Rect2(244, 332, 450, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7afy"]
+atlas = ExtResource("3_l7afy")
+region = Rect2(936, 331, 472, 265)
+
+[node name="Leaderboards" type="Control" unique_id=1695053759]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 120.0
+script = ExtResource("1_4kg6k")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1136256742]
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 647.0
 color = Color(0.2004275, 0.45099533, 0.19081166, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=455029969]
+layout_mode = 0
+offset_left = 217.0
+offset_top = -120.0
+offset_right = 928.0
+offset_bottom = 300.0
+texture = ExtResource("2_n6tc2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="." unique_id=720220723]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 128.0
+offset_right = 1110.0
+offset_bottom = 647.0
+
+[node name="ScoresList" type="VBoxContainer" parent="Panel" unique_id=1961910630]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 14.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=585444856]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 0
+offset_left = -30.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 130.0
+scale = Vector2(0.8, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=1476748770]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="BackBtn" type="TextureButton" parent="MarginContainer2/VBoxContainer" unique_id=1771482296]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_n0wk5")
+texture_hover = SubResource("AtlasTexture_l7afy")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("4_n0wk5")
+
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/BackBtn" to="." method="_on_back_pressed"]
