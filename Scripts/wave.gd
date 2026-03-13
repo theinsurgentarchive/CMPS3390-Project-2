@@ -46,11 +46,9 @@ func randType() -> int:
 		sum += weights[key]
 	var random = rng.randi_range(0, sum - 1)
 	for key in weights:
-		print(random)
 		if random < weights[key]:
 			return key - 1
 		random -= weights[key]
-	print(random)
 	return -1
 
 func genEnemy(type: int):

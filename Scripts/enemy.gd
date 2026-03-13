@@ -9,11 +9,13 @@ signal enemyDeath(value: int, enemy: Enemy)
 @export var type: int = 1
 @export var worth: int = 100
 @export var rot_accel = 150.0
+var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 @export var sprite: Resource = load("res://Resources/Fodder.tres")
 @onready var nav: NavigationAgent2D = $Navigation
 var target: CharacterBody2D
 var direction = Vector2.ZERO
 var initialized = false
+var timer: Timer = null
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
@@ -21,6 +23,7 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	queue_free()
 
 func initialize(a: Dictionary):
+	$".".name = "Enemy"
 	type = a[1]
 	health = a[2]
 	damage = a[3]
@@ -36,11 +39,28 @@ func initialize(a: Dictionary):
 		0:
 			nav.avoidance_priority = 0.5
 		1:
+			timer = Timer.new()
+			timer.autostart = true
+			timer.one_shot = false
+			timer.wait_time = 1.5
+			timer.name = "ShootTimer"
+			timer.timeout.connect(_shoot)
+			add_child(timer)
 			nav.avoidance_priority = 1.0
 	initialized = true
 
 func _ready() -> void:
 	pass
+
+func _shoot():
+	var p = projectile.instantiate()
+	get_tree().current_scene.get_node("Projectiles").add_child(p)
+	p.setType(0, [], 1)
+	p.global_position = $Mussle.global_position
+	p.rotation = $Mussle.global_rotation
+	p.name = "E Projectile"
+	p.add_to_group("Projectiles")
+	timer.start()
 
 func _on_hurt_box_got_hurt(_damage: float) -> void:
 	pass

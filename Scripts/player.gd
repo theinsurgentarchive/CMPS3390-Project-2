@@ -90,7 +90,7 @@ func wepHandler():
 		if (checkProjectiles() && $Weapon/Delay.is_stopped()):
 			var p = projectile.instantiate()
 			get_tree().current_scene.get_node("Projectiles").add_child(p)
-			p.setType(select, targets)
+			p.setType(select, targets, 0)
 			p.global_position = $Weapon/Mussle.global_position
 			p.rotation = $Weapon/Mussle.global_rotation
 			p.name = "P Projectile"

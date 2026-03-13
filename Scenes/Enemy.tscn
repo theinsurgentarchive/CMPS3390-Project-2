@@ -60,21 +60,22 @@ scale = Vector2(1.1, 1.1)
 shape = SubResource("CircleShape2D_bymjw")
 debug_color = Color(1, 0, 0, 0.41960785)
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=1143781811]
-position = Vector2(48, 0)
-
-[node name="ColorRect" type="ColorRect" parent="Marker2D" unique_id=1831830830]
+[node name="MussleDebug" type="ColorRect" parent="." unique_id=1831830830]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -5.0
+offset_left = 43.0
 offset_top = -5.0
-offset_right = 5.0
+offset_right = 53.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Mussle" type="Marker2D" parent="." unique_id=1143781811]
+position = Vector2(48, 0)
 
 [connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
 [connection signal="velocity_computed" from="Navigation" to="." method="_on_navigation_velocity_computed"]
