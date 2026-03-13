@@ -8,6 +8,16 @@ extends Control
 @export var quit_scene: String = "res://Scenes/quit.tscn"
 
 func _ready() -> void:
+	# Get score node
+	var db = Database.new()
+	db.name = "Database"
+	get_tree().root.add_child.call_deferred(db)
+	
+	# Get score node
+	var s = Score.new()
+	s.name = "Score"
+	get_tree().root.add_child.call_deferred(s)
+	
 	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
 	# Safely grab it if it exists in the scene tree.
 	var start_btn := get_node_or_null("ColorRect/MarginContainer/VBoxContainer/StartBtn")

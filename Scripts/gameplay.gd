@@ -1,38 +1,40 @@
 class_name Manager
 extends Node2D
 
-@export var maxProjectiles: int = 20
-var projectilesSpawn:bool = true
+signal waveComplete(wave: int)
+signal waveStarting(wave: int)
+
+@export var maxProjectiles: int = 12000
+@export var waveGen: Script = load("res://Scripts/wave.gd")
+@export var difficulty: int = 1
+var projectilesSpawn: bool = true
 var db: Database
 var s: Score
-var e: Enemy
 var time: Timer
 var enemy: PackedScene = load("res://Scenes/Enemy.tscn")
 var enemies: Array = []
 var wave = 0
+var waveOver: bool = false
 
 func _ready() -> void:
 	# Set wave timer
 	time = Timer.new()
-	get_tree().current_scene.add_child(time)
+	time.name = "WaveTimer"
+	time.autostart = false
 	time.one_shot = true
 	time.wait_time = 2.5
+	get_tree().current_scene.add_child(time)
 	
 	# Get database node
-	if get_tree().root.get_node_or_null("Database") == null:
-		db = Database.new()
-		get_tree().root.add_child(db)
-		db.name = "Database"
-	else:
-		db = get_tree().root.get_node("Database")
+	db = get_tree().root.get_node_or_null("Database")
+	assert(db != null, "Database node not found...")
 	
 	# Get score node
-	if get_tree().root.get_node_or_null("Score") == null:
-		s = Score.new()
-		get_tree().root.add_child(s)
-		s.name = "Score"
-	else:
-		s = get_tree().root.get_node("Score")
+	s = get_tree().root.get_node_or_null("Score")
+	assert(s != null, "Score node not found...")
+	
+	$Enemies.set_script(waveGen)
+	$Enemies.initialize(db, difficulty)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -51,22 +53,33 @@ func _process(delta: float) -> void:
 		projectilesSpawn = true
 	
 	# Spawn wave
-	if enemies.is_empty() && time.is_stopped():
-		e = enemy.instantiate()
-		get_tree().current_scene.get_node("Enemies").add_child(e)
-		e.add_to_group("Enemies")
-		e.enemyDeath.connect(_on_enemy_death)
-		enemies.append(e)
-		print("Spawned Wave: %s" % [wave + 1])
-		wave += 1
-
+	if enemies.is_empty():
+		if !waveOver:
+			waveOver = true
+			waveComplete.emit(wave)
+			print("Wave: %s Completed." % [wave])
+			wave += 1
+			time.start()
+		if time.is_stopped():
+			if waveOver:
+				waveOver = false
+				waveStarting.emit(wave)
+			enemies = $Enemies.genWave(wave)
+			for e in enemies:
+				e.enemyDeath.connect(_on_enemy_death)
+			print("Spawned Wave: %s" % [wave])
+			# e = enemy.instantiate()
+			# get_tree().current_scene.get_node("Enemies").add_child(e)
+			# e.add_to_group("Enemies")
+			# e.type = 0
+			# e.enemyDeath.connect(_on_enemy_death)
 func _on_player_die() -> void:
 	call_deferred("gameOver")
 
 func _on_enemy_death(value: int, e: Enemy) -> void:
 	s.setScore(s.score + value)
 	enemies.erase(e)
-	time.start()
+	# time.start()
 	print("Enemy died")
 
 func gameOver():

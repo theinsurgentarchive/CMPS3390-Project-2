@@ -23,6 +23,7 @@ var wepAnim = {
 	}
 var bodyAnim = ["Idle", "Move"]
 
+
 func _ready() -> void:
 	select = defaultSelect
 	$StartupDelay.start()
@@ -30,7 +31,7 @@ func _ready() -> void:
 	$Weapon.play(wepAnim.idle[0])
 
 func _on_hurt_box_got_hurt(_damage: float) -> void:
-	print_debug("Health: " + str($Health.getHealth()))
+	# print_debug("Health: " + str($Health.getHealth()))
 	if $Health.iFrameTimer == null:
 		$Health.temporaryInvul($Health.iFrameLength)
 	else:
@@ -38,7 +39,7 @@ func _on_hurt_box_got_hurt(_damage: float) -> void:
 			$Health.temporaryInvul($Health.iFrameLength)
 
 func _on_health_health_empty() -> void:
-	print_debug("Health Depleted")
+	# print_debug("Health Depleted")
 	if !$Health.getInvul():
 		die.emit()
 	
@@ -57,9 +58,7 @@ func moveHandler(delta: float):
 	# Move Player
 	look_at(mouse_pos)
 	velocity = dir * speed
-	var collision = move_and_collide(velocity * delta)
-	if collision:
-		velocity = velocity.slide(collision.get_normal())
+	move_and_slide()
 
 func wepHandler():
 	# Starting Delay

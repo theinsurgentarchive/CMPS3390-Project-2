@@ -7,11 +7,11 @@
 [ext_resource type="Script" uid="uid://b7heg2fbypyyh" path="res://Scripts/hit_box.gd" id="5_cyxbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bymjw"]
-radius = 23.0
+radius = 19.026299
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1163462337 groups=["Enemies"]]
 z_index = 1
-collision_layer = 4
+collision_layer = 5
 script = ExtResource("1_27mmj")
 
 [node name="NavTimer" type="Timer" parent="." unique_id=862176712]
@@ -19,7 +19,6 @@ wait_time = 0.6
 autostart = true
 
 [node name="Navigation" type="NavigationAgent2D" parent="." unique_id=276122656]
-simplify_path = true
 simplify_epsilon = 3.0
 avoidance_enabled = true
 debug_enabled = true
@@ -36,8 +35,8 @@ scale = Vector2(0.99, 0.99)
 shape = SubResource("CircleShape2D_bymjw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1137601791]
-rotation = 1.5707964
-scale = Vector2(5, 5)
+rotation = -1.5707964
+scale = Vector2(4, 4)
 texture = ExtResource("3_cyxbf")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1044999573 node_paths=PackedStringArray("health")]
@@ -78,5 +77,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
+[connection signal="velocity_computed" from="Navigation" to="." method="_on_navigation_velocity_computed"]
 [connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
 [connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]

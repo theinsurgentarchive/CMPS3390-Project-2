@@ -7,7 +7,7 @@ enum types {
 	SLUG
 }
 
-@export var liveFor: float = 30.0
+@export var liveFor: float = 12.0
 @export var maxSpeed: float = 250.0
 @export var accel: float = 300.0
 @export var damage: float = 1.0
@@ -59,8 +59,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				queue_free()
 			if body is Player:
 				return
-			if body.owner is Arena:
-				queue_free()
+		if body.owner is Arena:
+			queue_free()
 			
 			
 			
