@@ -1,8 +1,133 @@
 [gd_scene format=3 uid="uid://b0jwdqf88ik0p"]
 
-[node name="Credits" type="Node2D" unique_id=703461568]
+[ext_resource type="Script" uid="uid://b5xnav7iil41d" path="res://Scenes/credits.gd" id="1_ccovl"]
+[ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="1_gryuy"]
+[ext_resource type="Texture2D" uid="uid://jkv5ncxdmbh6" path="res://Sprites/meteor.png" id="2_1bamb"]
+[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scenes/back_btn.gd" id="2_ccovl"]
+[ext_resource type="Texture2D" uid="uid://wu0g21q2qv8n" path="res://Sprites/Stars2.png" id="3_xelri"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bamb"]
+atlas = ExtResource("1_gryuy")
+region = Rect2(244, 332, 450, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xelri"]
+atlas = ExtResource("1_gryuy")
+region = Rect2(936, 331, 472, 265)
+
+[node name="Credits" type="Control" unique_id=278721393]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ccovl")
+meteor_texture = ExtResource("2_1bamb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1245463829]
-offset_right = 1158.0
-offset_bottom = 656.0
-color = Color(0.65966356, 0.00033768534, 0.66259885, 1)
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 648.0
+color = Color(0.366161, 9.594865e-05, 0.3684717, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=1351428909]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 649.0
+texture = ExtResource("3_xelri")
+expand_mode = 1
+
+[node name="MeteorLayer" type="Control" parent="." unique_id=1032868825]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Names" type="Control" parent="." unique_id=2052191261]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name1" type="Label" parent="Names" unique_id=1213958013]
+layout_mode = 0
+offset_left = 570.0
+offset_top = 200.0
+offset_right = 649.0
+offset_bottom = 223.0
+text = "David Chu"
+
+[node name="Name2" type="Label" parent="Names" unique_id=1402356412]
+layout_mode = 0
+offset_left = 570.0
+offset_top = 240.0
+offset_right = 694.0
+offset_bottom = 263.0
+text = "Jonathan Torres"
+
+[node name="Name3" type="Label" parent="Names" unique_id=823183765]
+layout_mode = 0
+offset_left = 570.0
+offset_top = 280.0
+offset_right = 678.0
+offset_bottom = 329.0
+text = "Aiden Shelton
+"
+
+[node name="Name4" type="Label" parent="Names" unique_id=1685046935]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 390.0
+offset_right = 734.0
+offset_bottom = 439.0
+text = "Thank You For The Challenge"
+
+[node name="Name5" type="Label" parent="Names" unique_id=779922900]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 420.0
+offset_right = 734.0
+offset_bottom = 469.0
+text = "Paul Royer"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1275376290]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 0
+offset_left = -30.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 130.0
+scale = Vector2(0.8, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=1478639016]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="BackBtn" type="TextureButton" parent="MarginContainer2/VBoxContainer" unique_id=1603171223]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_1bamb")
+texture_hover = SubResource("AtlasTexture_xelri")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_ccovl")
+
+[node name="Title" type="Label" parent="." unique_id=2066654261]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 140.0
+offset_right = 897.0
+offset_bottom = 225.0
+theme_override_font_sizes/font_size = 35
+text = "Lead Programmers & Designers"
+
+[node name="Title2" type="Label" parent="." unique_id=1714672115]
+layout_mode = 0
+offset_left = 429.0
+offset_top = 332.0
+offset_right = 962.0
+offset_bottom = 417.0
+theme_override_font_sizes/font_size = 35
+text = "CMPS3390 PROJECT 2"
