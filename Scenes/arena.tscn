@@ -5,6 +5,18 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_jdqfs"]
 
+[sub_resource type="Gradient" id="Gradient_lq7nq"]
+offsets = PackedFloat32Array(0, 0.7669903)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ra5jo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nnts3"]
+noise = SubResource("FastNoiseLite_ra5jo")
+color_ramp = SubResource("Gradient_lq7nq")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lq7nq"]
+size = Vector2(2000, 2000)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lq7nq"]
 normal = Vector2(0, 1)
 
@@ -16,11 +28,13 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jdqfs"]
 normal = Vector2(-1, 0)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_jdqfs"]
-outlines = Array[PackedVector2Array]([PackedVector2Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lq7nq"]
+vertices = PackedVector2Array(990, 990, -990, 990, -990, -990, 990, -990)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)])
 
 [node name="arena" type="StaticBody2D" unique_id=1542760714]
-collision_layer = 255
+collision_layer = 4
 collision_mask = 255
 script = ExtResource("1_lq7nq")
 metadata/_edit_lock_ = true
@@ -31,26 +45,33 @@ mesh = SubResource("QuadMesh_jdqfs")
 texture = ExtResource("2_ra5jo")
 metadata/_edit_lock_ = true
 
-[node name="North Border" type="CollisionShape2D" parent="." unique_id=980163320 groups=["Boundaries"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=506473090]
+shape = SubResource("RectangleShape2D_lq7nq")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Borders" type="StaticBody2D" parent="." unique_id=474458844]
+collision_layer = 255
+collision_mask = 255
+
+[node name="North Border" type="CollisionShape2D" parent="Borders" unique_id=980163320 groups=["Boundaries"]]
 position = Vector2(0, -1000)
 shape = SubResource("WorldBoundaryShape2D_lq7nq")
 metadata/_edit_lock_ = true
 
-[node name="South Border" type="CollisionShape2D" parent="." unique_id=448205125 groups=["Boundaries"]]
+[node name="South Border" type="CollisionShape2D" parent="Borders" unique_id=448205125 groups=["Boundaries"]]
 position = Vector2(0, 1000)
 shape = SubResource("WorldBoundaryShape2D_ra5jo")
 metadata/_edit_lock_ = true
 
-[node name="West Border" type="CollisionShape2D" parent="." unique_id=1551751834 groups=["Boundaries"]]
+[node name="West Border" type="CollisionShape2D" parent="Borders" unique_id=1551751834 groups=["Boundaries"]]
 position = Vector2(-1000, 0)
 shape = SubResource("WorldBoundaryShape2D_nnts3")
 metadata/_edit_lock_ = true
 
-[node name="East Border" type="CollisionShape2D" parent="." unique_id=1581468243 groups=["Boundaries"]]
+[node name="East Border" type="CollisionShape2D" parent="Borders" unique_id=1581468243 groups=["Boundaries"]]
 position = Vector2(1000, 0)
 shape = SubResource("WorldBoundaryShape2D_jdqfs")
 metadata/_edit_lock_ = true
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1796284820]
-scale = Vector2(2000, 2000)
-navigation_polygon = SubResource("NavigationPolygon_jdqfs")
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=2066589657]
+navigation_polygon = SubResource("NavigationPolygon_lq7nq")

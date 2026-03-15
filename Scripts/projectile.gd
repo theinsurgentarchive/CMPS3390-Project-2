@@ -7,7 +7,7 @@ enum types {
 	SLUG
 }
 
-@export var liveFor: float = 30.0
+@export var liveFor: float = 12.0
 @export var maxSpeed: float = 250.0
 @export var accel: float = 300.0
 @export var damage: float = 1.0
@@ -16,21 +16,33 @@ var target = null
 var currentSpeed = 0.0
 var rot_accel = 120.0
 var lastAngle = 0.0
+var enemy = false
 
-func setType(select: int, bodies: Array):
+func setType(select: int, bodies: Array, mod: int):
+	if mod == 1:
+		$Sprite.modulate = Color(1, 0.25, 0.25, 1.0)
+		$Sprite.scale = Vector2($Sprite.scale.x * 1.5, $Sprite.scale.y * 1.5)
+		enemy = true
 	match select:
 		0:
 			$Sprite.play("Bullet")
 			type = types.BULLET
-			currentSpeed = 750.0
+			if enemy:
+				currentSpeed = 325.0
+			else:
+				currentSpeed = 750.0
+			damage = 3.0
 		1:
 			$Sprite.play("Rocket")
 			type = types.ROCKET
 			setTarget(bodies)
+			damage = 10.0
 		2:
 			$Sprite.play("Slug")
 			type = types.SLUG
+			$HitBox/Collision.scale = Vector2(4.0, 4.0)
 			currentSpeed = 2000.0
+			damage = 40.0
 
 func setTarget(targets: Array):
 	var closest = null
@@ -38,7 +50,7 @@ func setTarget(targets: Array):
 	for t in targets:
 		if !is_instance_valid(t):
 			continue
-		var current_dist = global_position.distance_squared_to(t.global_position)
+		var current_dist = get_global_mouse_position().distance_squared_to(t.global_position)
 		if current_dist < shortest_dist:
 			shortest_dist = current_dist
 			closest = t
@@ -53,9 +65,29 @@ func _ready() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
 		return
+	if enemy:
+		print(area.owner)
 	for body in area.get_overlapping_bodies():
-		if body is Player && $".".name.contains("P Projectile"):
-			return
+		if !enemy:
+			if body.owner is Enemy && type != types.SLUG:
+				queue_free()
+			if body.owner is Player:
+				return
+			if body.owner is Projectile && body.get("enemy"):
+				queue_free()
+		else:
+			
+			if body.owner is Enemy:
+				return
+			if body.owner is Player:
+				queue_free()
+			if body.owner is Projectile && !body.get("enemy"):
+				queue_free()
+		if body.owner is Arena:
+			queue_free()
+			
+			
+			
 
 func _on_timer_timeout():
 	queue_free()
@@ -71,16 +103,12 @@ func _physics_process(delta: float) -> void:
 				lookAtSlowly(delta)
 		types.SLUG:
 			pass
-	lastAngle = rotation
-	if abs(rotation - lastAngle) < 0.001:
-		currentSpeed = move_toward(currentSpeed, maxSpeed, accel * delta)
-	else:
-		currentSpeed = move_toward(currentSpeed, 0, accel * 6 * delta)
+	currentSpeed = move_toward(currentSpeed, maxSpeed, accel * delta)
 	velocity = Vector2.RIGHT.rotated(rotation) * currentSpeed
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var object = collision.get_collider()
-		if object is Arena:
+		if object.owner is Arena || object is Arena:
 			queue_free()
 
 func lookAtSlowly(delta: float):

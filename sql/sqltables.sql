@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS enemy (
     health REAL NOT NULL DEFAULT 3.0,
     damage REAL NOT NULL DEFAULT 1.0,
     speed REAL NOT NULL DEFAULT 300.0,
+    weight INTEGER NOT NULL DEFAULT 1,
+    worth INTEGER NOT NULL DEFAULT 100,
     behavior INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY(id AUTOINCREMENT)
 );
@@ -37,7 +39,8 @@ INSERT OR IGNORE INTO weapon(name, damage, speed, idle_anim, fire_anim) VALUES
 ('railgun', 40, 1500.0, "Railgun_idle", "Railgun_fire"),
 ('rockets', 10.0, 300.0, "Rockets_idle", "Rockets_fire");
 
-INSERT OR IGNORE INTO enemy(name, sprite, health, damage, speed, behavior)
-VALUES
-('default', 'default', 3.0, 1.0, 300.0, 0),
-('orbiter', 'orbiter', 15.0, 5.0, 225.0, 1);
+INSERT OR IGNORE INTO enemy(
+    name, sprite, health, damage, speed, weight, worth, behavior
+) VALUES
+('default', 'res://Resources/Fodder.tres', 3.0, 1.0, 150.0, 20, 100, 0),
+('orbiter', 'res://Resources/Orbiter.tres', 15.0, 5.0, 100.0, 15, 500, 1);
