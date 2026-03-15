@@ -21,8 +21,8 @@ autostart = true
 [node name="Navigation" type="NavigationAgent2D" parent="." unique_id=276122656]
 simplify_epsilon = 3.0
 avoidance_enabled = true
-debug_enabled = true
 debug_use_custom = true
+debug_path_custom_color = Color(1, 1, 1, 0.1882353)
 
 [node name="Health" type="Node" parent="." unique_id=1384280465]
 script = ExtResource("2_bymjw")

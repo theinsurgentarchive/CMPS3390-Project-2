@@ -17,59 +17,48 @@ var currentSpeed = 0.0
 var rot_accel = 120.0
 var lastAngle = 0.0
 var enemy: bool
-var pierce: bool
 
-func setType(select: int, bodies: Array, mod: int):
-	enemy = (mod == 1)
-
-	# visuals
-	if enemy:
-		$Sprite.modulate = Color(1, 0.25, 0.25, 1.0)
-		$Sprite.scale = Vector2($Sprite.scale.x * 1.5, $Sprite.scale.y * 1.5)
-
-	# --- BODY collision setup (CharacterBody2D) ---
+func setType(select: int, bodies: Array, e: bool):
+	enemy = e
+	
+	# Wall Collision
 	collision_layer = 0
 	set_collision_layer_value(3, true)
-
+	
 	collision_mask = 0
-	set_collision_mask_value(1, true) # hit walls always
+	set_collision_mask_value(1, true)
 
-	# This is the key: ghost projectiles do NOT collide with enemy bodies
-	if not pierce:
-		set_collision_mask_value(6, true)
-
-	# --- HitBox detection setup (Area2D) ---
+	# HitBox Collision
 	$HitBox.collision_layer = 0
 	$HitBox.set_collision_layer_value(3, true)
-
+	
 	$HitBox.collision_mask = 0
 	if enemy:
 		$HitBox.set_collision_mask_value(2, true)
+		$Sprite.play("E_bullet")
+		currentSpeed = 50.0
+		
+		damage = 5.0
 	else:
 		$HitBox.set_collision_mask_value(4, true)
-
-	# Your existing match() that sets sprite/type/speeds/damage:
-	match select:
-		0:
-			$Sprite.play("Bullet")
-			type = types.BULLET
-			currentSpeed = 325.0 if enemy else 750.0
-			damage = 3.0
-		1:
-			$Sprite.play("Rocket")
-			type = types.ROCKET
-			setTarget(bodies)
-			damage = 10.0
-		2:
-			$Sprite.play("Slug")
-			type = types.SLUG
-			$HitBox/Collision.scale = Vector2(4.0, 4.0)
-			currentSpeed = 2000.0
-			damage = 40.0
-			# Slug should pierce by default:
-			pierce = true
-
-	# IMPORTANT: set HitBox damage AFTER deciding damage
+		match select:
+			0:
+				$Sprite.play("Bullet")
+				type = types.BULLET
+				currentSpeed = 750.0
+				damage = 3.0
+			1:
+				$Sprite.play("Rocket")
+				type = types.ROCKET
+				setTarget(bodies)
+				currentSpeed = 50.0
+				damage = 10.0
+			2:
+				$Sprite.play("Slug")
+				type = types.SLUG
+				$HitBox/Collision.scale = Vector2(4.0, 4.0)
+				currentSpeed = 2000.0
+				damage = 40.0
 	$HitBox.setDamage(damage)
 
 func setTarget(targets: Array):

@@ -74,15 +74,18 @@ func wepHandler():
 			slot = 0
 		if Input.is_action_just_pressed("Slot_" + str(slot)):
 			select = i
+			$Weapon/Delay.stop()
 			break
 			
 	if Input.is_action_just_pressed("Slot_next"):
 		select = (select + 1) % maxWeapons
+		$Weapon/Delay.stop()
 	if Input.is_action_just_pressed("Slot_prev"):
 		if (select <= 0):
 			select = maxWeapons - 1
 		else:
 			select -= 1
+		$Weapon/Delay.stop()
 	
 	# Fire Weapon
 	if Input.is_action_pressed("Fire"):
@@ -92,7 +95,7 @@ func wepHandler():
 		if (checkProjectiles() && $Weapon/Delay.is_stopped()):
 			var p = projectile.instantiate()
 			get_tree().current_scene.get_node("Projectiles").add_child(p)
-			p.setType(select, targets, 0)
+			p.setType(select, targets, false)
 			p.global_position = $Weapon/Mussle.global_position
 			p.rotation = $Weapon/Mussle.global_rotation
 			p.name = "P Projectile"

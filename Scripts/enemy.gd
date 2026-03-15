@@ -15,11 +15,11 @@ enum modes {
 @export var type: int = 1
 @export var worth: int = 100
 @export var rot_accel: float = 150.0
-@export var orb_dist: float = 300.0
-@export var orb_band: float = 40.0
-@export var orb_speed: float = 240.0
+@export var orb_dist: float = 350.0
+@export var orb_band: float = 60.0
+@export var orb_speed: float = 300.0
 @export var flee_speed: float = 90.0
-@export var flee_dist: float =  160.0
+@export var flee_dist: float =  100.0
 var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 @export var sprite: Resource = load("res://Resources/Fodder.tres")
 @onready var nav: NavigationAgent2D = $Navigation
@@ -62,7 +62,7 @@ func initialize(a: Dictionary):
 			timer.timeout.connect(_shoot)
 			add_child(timer)
 			nav.avoidance_priority = 1.0
-			rot_accel = 60.0
+			rot_accel = 85.0
 	initialized = true
 
 func _ready() -> void:
@@ -71,7 +71,7 @@ func _ready() -> void:
 func _shoot():
 	var p = projectile.instantiate()
 	get_tree().current_scene.get_node("Projectiles").add_child(p)
-	p.setType(0, [], 1)
+	p.setType(0, [], true)
 	p.global_position = $Mussle.global_position
 	p.rotation = $Mussle.global_rotation
 	p.name = "E Projectile"

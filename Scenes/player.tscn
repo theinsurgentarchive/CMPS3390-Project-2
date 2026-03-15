@@ -18,7 +18,6 @@ radius = 32.01562
 [node name="Player" type="CharacterBody2D" unique_id=836820942]
 z_index = 2
 script = ExtResource("1_4flbx")
-health = 2000.0
 
 [node name="StartupDelay" type="Timer" parent="." unique_id=1446952353]
 wait_time = 0.5
