@@ -4,9 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://cqmwe87630osr" path="res://Scenes/player.tscn" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
+[ext_resource type="AudioStream" uid="uid://5mhbsyqs34hd" path="res://Resources/Action Phase.mp3" id="2_r8bcl"]
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")
+
+[node name="ActionPhase" type="AudioStreamPlayer" parent="." unique_id=1944022973]
+stream = ExtResource("2_r8bcl")
+autoplay = true
+parameters/looping = true
 
 [node name="Arena" parent="." unique_id=616441089 instance=ExtResource("2_kwrm5")]
 scale = Vector2(3, 3)
