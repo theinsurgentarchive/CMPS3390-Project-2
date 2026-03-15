@@ -51,43 +51,51 @@ grow_vertical = 2
 
 [node name="Name1" type="Label" parent="Names" unique_id=1213958013]
 layout_mode = 0
-offset_left = 570.0
+offset_left = 534.0
 offset_top = 200.0
-offset_right = 649.0
+offset_right = 613.0
 offset_bottom = 223.0
 text = "David Chu"
 
 [node name="Name2" type="Label" parent="Names" unique_id=1402356412]
 layout_mode = 0
-offset_left = 570.0
+offset_left = 534.0
 offset_top = 240.0
-offset_right = 694.0
+offset_right = 658.0
 offset_bottom = 263.0
 text = "Jonathan Torres"
 
 [node name="Name3" type="Label" parent="Names" unique_id=823183765]
 layout_mode = 0
-offset_left = 570.0
+offset_left = 534.0
 offset_top = 280.0
-offset_right = 678.0
+offset_right = 642.0
 offset_bottom = 329.0
 text = "Aiden Shelton
 "
 
-[node name="Name4" type="Label" parent="Names" unique_id=1685046935]
+[node name="Name4" type="Label" parent="Names" unique_id=1106339495]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 390.0
-offset_right = 734.0
-offset_bottom = 439.0
+offset_left = 503.0
+offset_top = 360.0
+offset_right = 668.0
+offset_bottom = 383.0
+text = "alecsheamusic.itch.io"
+
+[node name="Name5" type="Label" parent="Names" unique_id=1685046935]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 480.0
+offset_right = 699.0
+offset_bottom = 529.0
 text = "Thank You For The Challenge"
 
-[node name="Name5" type="Label" parent="Names" unique_id=779922900]
+[node name="Name6" type="Label" parent="Names" unique_id=779922900]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 420.0
-offset_right = 734.0
-offset_bottom = 469.0
+offset_left = 468.0
+offset_top = 511.0
+offset_right = 692.0
+offset_bottom = 560.0
 text = "Paul Royer"
 horizontal_alignment = 1
 
@@ -116,18 +124,27 @@ script = ExtResource("2_ccovl")
 
 [node name="Title" type="Label" parent="." unique_id=2066654261]
 layout_mode = 0
-offset_left = 364.0
+offset_left = 328.0
 offset_top = 140.0
-offset_right = 897.0
+offset_right = 861.0
 offset_bottom = 225.0
 theme_override_font_sizes/font_size = 35
 text = "Lead Programmers & Designers"
 
 [node name="Title2" type="Label" parent="." unique_id=1714672115]
 layout_mode = 0
-offset_left = 429.0
-offset_top = 332.0
-offset_right = 962.0
-offset_bottom = 417.0
+offset_left = 389.0
+offset_top = 426.0
+offset_right = 922.0
+offset_bottom = 511.0
 theme_override_font_sizes/font_size = 35
 text = "CMPS3390 PROJECT 2"
+
+[node name="Title3" type="Label" parent="." unique_id=1737824348]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 307.0
+offset_right = 691.0
+offset_bottom = 356.0
+theme_override_font_sizes/font_size = 35
+text = "Music From"
