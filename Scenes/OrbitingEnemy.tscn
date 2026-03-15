@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c2eo06vuk10hl"]
+
+[ext_resource type="Script" uid="uid://c4shvi60l7tm7" path="res://Scripts/orbiting_enemy.gd" id="1_46hoh"]
+[ext_resource type="Script" uid="uid://chuga03uksdjp" path="res://Scripts/health.gd" id="2_od5ng"]
+[ext_resource type="Texture2D" uid="uid://b0oh21hoyeslp" path="res://Sprites/OrbitingEnemySprite.png" id="2_xx5m8"]
+[ext_resource type="Script" uid="uid://cqdimgirurmut" path="res://Scripts/hurt_box.gd" id="4_0v73k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_od5ng"]
+size = Vector2(26, 37.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it1p7"]
+size = Vector2(26, 38)
+
+[node name="OrbitingEnemy" type="CharacterBody2D" unique_id=529356931]
+collision_priority = 0.5
+script = ExtResource("1_46hoh")
+
+[node name="Health" type="Node" parent="." unique_id=1039374857]
+script = ExtResource("2_od5ng")
+maxHealth = 4.0
+metadata/_custom_type_script = "uid://chuga03uksdjp"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1019822828]
+position = Vector2(-10, 0)
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_xx5m8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1355540868]
+position = Vector2(-7, 0.25)
+shape = SubResource("RectangleShape2D_od5ng")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1640630741 node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("4_0v73k")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://cqdimgirurmut"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1687545106]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_it1p7")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Timer" type="Timer" parent="." unique_id=1507380805]
+autostart = true
+
+[connection signal="healthEmpty" from="Health" to="." method="_on_health_health_empty"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="gotHurt" from="HurtBox" to="." method="_on_hurt_box_got_hurt"]

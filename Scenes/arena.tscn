@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ue6wcaqvm81p"]
 
 [ext_resource type="Script" uid="uid://bc6javo6biuj8" path="res://Scripts/arena.gd" id="1_lq7nq"]
+[ext_resource type="Texture2D" uid="uid://b43yj3qu7abvb" path="res://Sprites/mapSprite.png" id="2_ra5jo"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_jdqfs"]
 
@@ -39,10 +40,9 @@ script = ExtResource("1_lq7nq")
 metadata/_edit_lock_ = true
 
 [node name="ground" type="MeshInstance2D" parent="." unique_id=625720970]
-modulate = Color(0.40392157, 0.654902, 0.65882355, 1)
 scale = Vector2(2000, 2000)
 mesh = SubResource("QuadMesh_jdqfs")
-texture = SubResource("NoiseTexture2D_nnts3")
+texture = ExtResource("2_ra5jo")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=506473090]
