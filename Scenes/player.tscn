@@ -49,8 +49,7 @@ position = Vector2(-0.33300102, -14.242425)
 rotation = -1.5707964
 scale = Vector2(0.3030303, 0.33300033)
 
-[node name="Delay" type="Timer" parent="Weapon" unique_id=646586166]
-one_shot = true
+[node name="Delay" type="Node" parent="Weapon" unique_id=33336922]
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=253241635]
 texture_filter = 1

@@ -32,18 +32,18 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="." unique_id=2030142225]
 layout_mode = 1
 offset_left = 457.0
-offset_top = 226.0
+offset_top = 138.0
 offset_right = 544.0
-offset_bottom = 249.0
+offset_bottom = 161.0
 scale = Vector2(3, 3)
 text = "Game Over"
 
 [node name="Score" type="Label" parent="." unique_id=1282205795]
 layout_mode = 0
-offset_left = 476.0
-offset_top = 309.0
+offset_left = 475.99997
+offset_top = 221.0
 offset_right = 700.0
-offset_bottom = 357.0
+offset_bottom = 269.0
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -52,10 +52,10 @@ autowrap_mode = 1
 [node name="UserInput" type="LineEdit" parent="." unique_id=1205258053]
 modulate = Color(0.61960787, 0.89411765, 0.84705883, 1)
 layout_mode = 0
-offset_left = 473.0
-offset_top = 377.0
+offset_left = 472.99997
+offset_top = 289.0
 offset_right = 697.0
-offset_bottom = 448.0
+offset_bottom = 360.0
 placeholder_text = "Input Username:"
 alignment = 1
 clear_button_enabled = true

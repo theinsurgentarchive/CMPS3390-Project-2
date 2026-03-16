@@ -50,11 +50,6 @@ region = Rect2(223, 533, 1175, 263)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_60k44")
-start_scene = null
-settings_scene = null
-credits_scene = null
-leaderboards_scene = null
-quit_scene = null
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2086393522]
 layout_mode = 0

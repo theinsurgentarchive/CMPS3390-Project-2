@@ -8,16 +8,13 @@ func _ready() -> void:
 
 	# FORCE using the required project DB file
 	db.path = "res://sql/data.db"
-	print_debug("Database: FORCED DB PATH = " + db.path)
+	print("Database: FORCED DB PATH = " + db.path)
 
-	var dbOK = db.open_db()
-	if !dbOK:
-		printerr(Error.ERR_CANT_CONNECT)
-		return
+	var dbOK: bool = db.open_db()
+	assert(dbOK, "Database connection failed...")
+	print("Database: DB opened successfully (res://sql/data.db).")
 
-	print_debug("Database: DB opened successfully (res://sql/data.db).")
-
-	var q = FileAccess.get_file_as_string("res://sql/sqltables.sql")
+	var q: String = FileAccess.get_file_as_string("res://sql/sqltables.sql")
 	db.query(q)
 
 func getEnemy(type: int):
@@ -35,7 +32,7 @@ func getWeapon(type: int):
 	return exists[0]
 
 func getWeapons():
-	var weapons = db.select_rows("weapons", "", ["*"])
+	var weapons = db.select_rows("weapon", "", ["*"])
 	return weapons
 
 func addScore(score: int, n: String):

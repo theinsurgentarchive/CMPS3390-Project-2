@@ -7,6 +7,11 @@
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")
+maxProjectiles = null
+difficulty = null
+health = null
+speed = null
+defaultSelect = null
 
 [node name="ActionPhase" type="AudioStreamPlayer" parent="." unique_id=1944022973]
 stream = ExtResource("2_r8bcl")

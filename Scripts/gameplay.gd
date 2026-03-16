@@ -7,6 +7,10 @@ signal waveStarting(wave: int)
 @export var maxProjectiles: int = 12000
 @export var waveGen: Script = load("res://Scripts/wave.gd")
 @export var difficulty: int = 1
+@export var health: float = 100.0
+@export var speed: float = 300.0
+@export var defaultSelect: int = 0
+@export var invulerabilityTimer: float = 0.5
 var projectilesSpawn: bool = true
 var db: Database
 var s: Score
@@ -41,6 +45,9 @@ func _ready() -> void:
 	p = player.instantiate()
 	p.name = "Player"
 	get_tree().current_scene.add_child(p)
+	var weps: Array = db.getWeapons()
+	var mod = [health, speed, defaultSelect, invulerabilityTimer]
+	p.initialize(weps, mod)
 	p.die.connect(_on_player_die)
 	
 	$Enemies.set_script(waveGen)

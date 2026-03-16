@@ -14,21 +14,17 @@ func _ready() -> void:
 		db = Database.new()
 		db.name = "Database"
 		get_tree().root.add_child.call_deferred(db)
-
+	
 	# Start score node
 	var s = get_tree().root.get_node_or_null("Score")
 	if s == null:
 		s = Score.new()
 		s.name = "Score"
 		get_tree().root.add_child.call_deferred(s)
-
-	# Optional: if you want keyboard/gamepad navigation to start on StartBtn.
+	
 	var start_btn := get_node_or_null("ColorRect/MarginContainer/VBoxContainer/StartBtn")
 	if start_btn:
 		start_btn.grab_focus()
-
-func _process(delta: float) -> void:
-	pass
 
 func _on_start_btn_pressed() -> void:
 	get_tree().change_scene_to_file(start_scene)
