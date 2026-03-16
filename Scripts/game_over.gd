@@ -41,5 +41,16 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 
 	data.addScore(value, name)
 	print_debug("GAME_OVER: submitted name='" + name + "' score=" + str(value))
-
+	$Score.text = "Score added to Leaderboard, returning to Main Menu."
+	await get_tree().create_timer(2.0).timeout
 	get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
+
+
+func _on_exit_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
+
+
+func _on_exit_desktop_pressed() -> void:
+	$Score.text = "Goodbye!!!"
+	await get_tree().create_timer(1.2).timeout
+	get_tree().quit()

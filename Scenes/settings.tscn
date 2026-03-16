@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3puls3sv7tyf"]
 
 [ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="1_i44u3"]
-[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scenes/back_btn.gd" id="2_lhmql"]
+[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scripts/back_btn.gd" id="2_lhmql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaqfp"]
 atlas = ExtResource("1_i44u3")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cylhvw5uxlfk8" path="res://Scripts/leaderboards.gd" id="1_4kg6k"]
 [ext_resource type="Texture2D" uid="uid://di4thio1v3opa" path="res://Sprites/Glowing leaderboard with pixelated star.png" id="2_n6tc2"]
 [ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="3_l7afy"]
-[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scenes/back_btn.gd" id="4_n0wk5"]
+[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scripts/back_btn.gd" id="4_n0wk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0wk5"]
 atlas = ExtResource("3_l7afy")

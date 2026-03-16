@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d1k7tv5je5t2i"]
 
 [ext_resource type="Script" uid="uid://b6pdy6nyfrmox" path="res://Scripts/game_over.gd" id="1_m5628"]
+[ext_resource type="Texture2D" uid="uid://xxqxcdf7wmdj" path="res://Sprites/MENU_ALT.png" id="2_k52d1"]
 
 [node name="GameOver" type="Control" unique_id=89719591]
 layout_mode = 3
@@ -20,6 +21,14 @@ offset_right = 1153.0
 offset_bottom = 648.0
 color = Color(0.014631171, 0.7472807, 0.75445366, 1)
 
+[node name="TextureRect" type="TextureRect" parent="ColorRect2" unique_id=410550192]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 648.0
+texture = ExtResource("2_k52d1")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="Label" type="Label" parent="." unique_id=2030142225]
 layout_mode = 1
 offset_left = 457.0
@@ -38,12 +47,14 @@ offset_bottom = 357.0
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 1
 
 [node name="UserInput" type="LineEdit" parent="." unique_id=1205258053]
+modulate = Color(0.61960787, 0.89411765, 0.84705883, 1)
 layout_mode = 0
-offset_left = 475.0
+offset_left = 473.0
 offset_top = 377.0
-offset_right = 694.5
+offset_right = 697.0
 offset_bottom = 448.0
 placeholder_text = "Input Username:"
 alignment = 1
@@ -51,11 +62,24 @@ clear_button_enabled = true
 
 [node name="Submit" type="Button" parent="UserInput" unique_id=619422063]
 layout_mode = 0
-offset_left = -4.0
-offset_top = 89.0
-offset_right = 225.0
-offset_bottom = 137.0
+offset_top = 87.0
+offset_right = 224.0
+offset_bottom = 135.0
 text = "SUBMIT"
+
+[node name="ExitMenu" type="Button" parent="UserInput" unique_id=737639428]
+layout_mode = 0
+offset_top = 143.0
+offset_right = 224.0
+offset_bottom = 191.0
+text = "EXIT TO MAIN MENU"
+
+[node name="ExitDesktop" type="Button" parent="UserInput" unique_id=73724900]
+layout_mode = 0
+offset_top = 199.0
+offset_right = 224.0
+offset_bottom = 247.0
+text = "EXIT TO DESKTOP"
 
 [node name="Timer" type="Timer" parent="." unique_id=779398088]
 wait_time = 10.0
@@ -63,3 +87,5 @@ one_shot = true
 
 [connection signal="text_submitted" from="UserInput" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="UserInput/Submit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UserInput/ExitMenu" to="." method="_on_exit_menu_pressed"]
+[connection signal="pressed" from="UserInput/ExitDesktop" to="." method="_on_exit_desktop_pressed"]
