@@ -19,10 +19,12 @@ var p: Player
 var player: PackedScene = load("res://Scenes/player.tscn")
 var enemy: PackedScene = load("res://Scenes/Enemy.tscn")
 var enemies: Array = []
-var wave = 0
+var wave: int = 0
 var waveOver: bool = false
+var pauseReturn: bool = false
 
 func _ready() -> void:
+	$HudLayer/PauseMenu.visible = false
 	# Set wave timer
 	time = Timer.new()
 	time.name = "WaveTimer"
@@ -108,12 +110,10 @@ func _process(delta: float) -> void:
 			for e in enemies:
 				e.enemyDeath.connect(_on_enemy_death)
 			print("Spawned Wave: %s" % [wave])
-			# e = enemy.instantiate()
-			# get_tree().current_scene.get_node("Enemies").add_child(e)
-			# e.add_to_group("Enemies")
-			# e.type = 0
-			# e.enemyDeath.connect(_on_enemy_death)
+
 func _on_player_die() -> void:
+	if pauseReturn:
+		return
 	call_deferred("gameOver")
 
 func _on_enemy_death(value: int, e: Enemy) -> void:
@@ -126,3 +126,7 @@ func gameOver():
 	if is_instance_valid($Player):
 		$Player.queue_free()
 	get_tree().change_scene_to_file("res://Scenes/gameover.tscn")
+
+
+func _on_pause_menu_emit() -> void:
+	pauseReturn = true

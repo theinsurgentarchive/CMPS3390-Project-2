@@ -138,10 +138,6 @@ func _process(delta: float) -> void:
 		func(target):
 			return is_instance_valid(target)
 	)
-	
-	# Open Pause Menu (Currently just ends game)
-	if Input.is_action_just_pressed("Pause"):
-		$Health.setHealth(0.0)
 
 func _physics_process(delta: float) -> void:
 	moveHandler(delta)

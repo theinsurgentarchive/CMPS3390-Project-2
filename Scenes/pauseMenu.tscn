@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://dwax8jrqcugcs"]
+
+[ext_resource type="Script" uid="uid://dw55468pjtup7" path="res://Scripts/pause_menu.gd" id="1_15pn7"]
+
+[sub_resource type="FontFile" id="FontFile_csx24"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/21/0/ascent = 0.0
+cache/0/21/0/descent = 0.0
+cache/0/21/0/underline_position = 0.0
+cache/0/21/0/underline_thickness = 0.0
+cache/0/21/0/scale = 1.0
+cache/0/22/0/ascent = 0.0
+cache/0/22/0/descent = 0.0
+cache/0/22/0/underline_position = 0.0
+cache/0/22/0/underline_thickness = 0.0
+cache/0/22/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_15pn7"]
+font = SubResource("FontFile_csx24")
+font_size = 22
+outline_size = 6
+outline_color = Color(0.45490196, 0.45490196, 0.45490196, 0.1882353)
+shadow_size = 9
+shadow_color = Color(0, 0, 0, 0.43529412)
+
+[node name="PauseMenu" type="Control" unique_id=1958796839]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_15pn7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=530094598]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.14509805, 0.16470589, 0.16470589, 0.8745098)
+
+[node name="Score" type="Label" parent="Background" unique_id=1520875776]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 271.0
+offset_right = 65.0
+offset_bottom = 320.0
+grow_horizontal = 2
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="Background/Score" unique_id=257649471]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -53.5
+offset_right = 20.0
+offset_bottom = -30.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME PAUSED"
+label_settings = SubResource("LabelSettings_15pn7")
+vertical_alignment = 1
+
+[node name="MenuExit" type="Button" parent="Background/Score" unique_id=1979912732]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = 40.0
+offset_right = 79.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "QUIT TO MENU"
+
+[node name="Continue" type="Button" parent="Background/Score" unique_id=125735137]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_right = 79.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CONTINUE"
+
+[node name="DesktopExit" type="Button" parent="Background/Score" unique_id=1157994974]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = 80.0
+offset_right = 79.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "QUIT TO DESKTOP"
+
+[connection signal="pressed" from="Background/Score/MenuExit" to="." method="_on_menu_exit_pressed"]
+[connection signal="pressed" from="Background/Score/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Background/Score/DesktopExit" to="." method="_on_desktop_exit_pressed"]

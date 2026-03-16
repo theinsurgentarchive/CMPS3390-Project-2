@@ -4,16 +4,14 @@ extends Node
 var db: SQLite
 
 func _ready() -> void:
+	# Create database connection
 	db = SQLite.new()
-
-	# FORCE using the required project DB file
 	db.path = "res://sql/data.db"
-	print("Database: FORCED DB PATH = " + db.path)
-
 	var dbOK: bool = db.open_db()
 	assert(dbOK, "Database connection failed...")
 	print("Database: DB opened successfully (res://sql/data.db).")
-
+	
+	# Run startup script
 	var q: String = FileAccess.get_file_as_string("res://sql/sqltables.sql")
 	db.query(q)
 
@@ -43,9 +41,12 @@ func addScore(score: int, n: String):
 	var pid
 
 	if !exists.is_empty():
-		print_debug("Database: Player already exists: " + n)
+		print("Database: Player already exists: " + n)
 		pid = exists[0]["id"]
-
+		var current = db.select_rows("leaderboard", "id == %s" % [pid], ["score"])
+		if score <= current[0]["score"]:
+			print("Database: CURRENT SCORE RETAINED, input less than or equal to current")
+			return
 		query = '''
 			INSERT INTO leaderboard(id, score) VALUES (:id, :score)
 			ON CONFLICT(id) DO UPDATE SET score = :score;
@@ -53,11 +54,11 @@ func addScore(score: int, n: String):
 		binding = {"id": pid, "score": score}
 		ok = db.query_with_named_bindings(query, binding)
 		assert(ok, "Failed to insert/update leaderboard for Player " + str(pid) + "...")
-
-		print_debug("Database: SAVED SCORE (existing) -> name='" + n + "' id=" + str(pid) + " score=" + str(score))
+	
+		print("Database: SAVED SCORE (existing) -> name='" + n + "' id=" + str(pid) + " score=" + str(score))
 
 	else:
-		print_debug("Database: Generating new Player: " + n)
+		print("Database: Generating new Player: " + n)
 
 		query = "INSERT INTO player(name) VALUES (?)"
 		binding = [n]
@@ -74,11 +75,12 @@ func addScore(score: int, n: String):
 		ok = db.query_with_named_bindings(query, binding)
 		assert(ok, "Failed to insert/update leaderboard for Player " + str(pid) + "...")
 
-		print_debug("Database: SAVED SCORE (new) -> name='" + n + "' id=" + str(pid) + " score=" + str(score))
+		print("Database: SAVED SCORE (new) -> name='" + n + "' id=" + str(pid) + " score=" + str(score))
 
-# [{ "rank": 1, "name": "PlayerName", "score": 1234 }, ...]
-func get_leaderboard(limit: int = 10) -> Array:
-	print_debug("Database: Reading leaderboard from FORCED DB: " + db.path)
+# [{"name": "PlayerName", "score": 1234}, ...]
+# array index is the row's rank
+func get_leaderboard(limit: int = 15) -> Array:
+	print("Database: Reading leaderboard from FORCED DB: " + db.path)
 
 	var query = """
 		SELECT p.name AS name, l.score AS score

@@ -55,6 +55,8 @@ func _on_exit_menu_pressed() -> void:
 	if selected:
 		return
 	selected = true
+	$Score.text = "Returning to Main Menu..."
+	await get_tree().create_timer(2.0).timeout
 	get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
 
 
@@ -62,5 +64,6 @@ func _on_exit_desktop_pressed() -> void:
 	if selected:
 		return
 	$Score.text = "Goodbye!!!"
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(2.0).timeout
+	data.get("db").close_db()
 	get_tree().quit()

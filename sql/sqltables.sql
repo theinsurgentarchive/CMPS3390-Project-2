@@ -41,9 +41,9 @@ INSERT INTO weapon(
     name, damage, start_speed, speed, cooldown,
     idle_anim, fire_anim, projectile, mods
 ) VALUES
-('guns', 1.0, 750.0, 275.0, 0.1, "Guns_idle", "Gun_fire", "Bullet", NULL),
-('rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle", "Rockets_fire", "Rocket", "Seeking")
-('railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle", "Railgun_fire", "Slug", "Pierce,Large"),
+('guns', 1.0, 750.0, 275.0, 0.1, "Guns_idle", "Gun_fire", "Bullet", "null"),
+('rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle", "Rockets_fire", "Rocket", "Seeking"),
+('railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle", "Railgun_fire", "Slug", "Pierce,Large")
 ON CONFLICT(name) DO NOTHING;
 
 INSERT INTO enemy(

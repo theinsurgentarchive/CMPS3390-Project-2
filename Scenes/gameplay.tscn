@@ -4,14 +4,10 @@
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
 [ext_resource type="AudioStream" uid="uid://5mhbsyqs34hd" path="res://Resources/Action Phase.mp3" id="2_r8bcl"]
+[ext_resource type="PackedScene" uid="uid://dwax8jrqcugcs" path="res://Scenes/pauseMenu.tscn" id="5_r8bcl"]
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")
-maxProjectiles = null
-difficulty = null
-health = null
-speed = null
-defaultSelect = null
 
 [node name="ActionPhase" type="AudioStreamPlayer" parent="." unique_id=1944022973]
 stream = ExtResource("2_r8bcl")
@@ -21,11 +17,13 @@ parameters/looping = true
 [node name="Arena" parent="." unique_id=616441089 instance=ExtResource("2_kwrm5")]
 scale = Vector2(3, 3)
 
+[node name="Projectiles" type="Node" parent="." unique_id=1500112190 groups=["Projectiles"]]
+
+[node name="Enemies" type="Node" parent="." unique_id=1583425146 groups=["Enemies"]]
+
 [node name="HudLayer" type="CanvasLayer" parent="." unique_id=100206208]
 
 [node name="HUD" parent="HudLayer" unique_id=678604282 instance=ExtResource("1_ej4tk")]
 metadata/_edit_use_anchors_ = true
 
-[node name="Projectiles" type="Node" parent="." unique_id=1500112190 groups=["Projectiles"]]
-
-[node name="Enemies" type="Node" parent="." unique_id=1583425146 groups=["Enemies"]]
+[node name="PauseMenu" parent="HudLayer" unique_id=1958796839 instance=ExtResource("5_r8bcl")]
