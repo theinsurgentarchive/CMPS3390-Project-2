@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
 [ext_resource type="AudioStream" uid="uid://5mhbsyqs34hd" path="res://Resources/Action Phase.mp3" id="2_r8bcl"]
-[ext_resource type="PackedScene" uid="uid://dwax8jrqcugcs" path="res://Scenes/pauseMenu.tscn" id="5_r8bcl"]
+[ext_resource type="PackedScene" path="res://Scenes/pauseMenu.tscn" id="5_r8bcl"]
 
 [node name="Gameplay" type="Node2D" unique_id=1816785263]
 script = ExtResource("1_oe8ih")

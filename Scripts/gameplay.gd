@@ -25,6 +25,8 @@ var pauseReturn: bool = false
 
 func _ready() -> void:
 	$HudLayer/PauseMenu.visible = false
+	# Pause menu music
+	MusicPlayer.stop()
 	# Set wave timer
 	time = Timer.new()
 	time.name = "WaveTimer"

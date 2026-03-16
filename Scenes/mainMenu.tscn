@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://mg3wpxnypdxe" path="res://Sprites/Buttons.png" id="3_b7htb"]
 [ext_resource type="Texture2D" uid="uid://d1lmx7g480q0r" path="res://Sprites/Leaderboard Button.png" id="4_yl13b"]
 [ext_resource type="Texture2D" uid="uid://5idfmkgucmw1" path="res://Sprites/QUIT.png" id="5_3uny1"]
+[ext_resource type="Texture2D" uid="uid://g1jk6bjj5kpw" path="res://Sprites/Title.png" id="6_v10og"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yl13b"]
 atlas = ExtResource("3_b7htb")
@@ -98,14 +99,6 @@ texture_hover = SubResource("AtlasTexture_3uny1")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="." unique_id=147808781]
-layout_mode = 0
-offset_left = 511.0
-offset_top = 239.0
-offset_right = 639.0
-offset_bottom = 262.0
-text = "Temporary Title!"
-
 [node name="MarginContainer2" type="MarginContainer" parent="." unique_id=979237692]
 custom_minimum_size = Vector2(360, 120)
 layout_mode = 0
@@ -189,6 +182,11 @@ texture_normal = SubResource("AtlasTexture_rn1t7")
 texture_hover = SubResource("AtlasTexture_yij4q")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1557766075]
+position = Vector2(496, 352)
+scale = Vector2(1.3261719, 1.1914063)
+texture = ExtResource("6_v10og")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_pressed"]

@@ -9,6 +9,8 @@ extends Control
 var db: Database
 
 func _ready() -> void:
+	#start menu music
+	MusicPlayer.play()
 	# Start database node
 	db = get_tree().root.get_node_or_null("Database")
 	if db == null:
