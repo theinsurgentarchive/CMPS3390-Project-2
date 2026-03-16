@@ -37,8 +37,6 @@ func _ready() -> void:
 	
 	$Enemies.set_script(waveGen)
 	$Enemies.initialize(db, difficulty)
-	connect("waveStarting", startWave)
-	connect("waveComplete", completeWave)
 
 func completeWave(wave: int):
 	$HudLayer/HUD/Wave/Text.text = "Wave " + str(wave) + " Finish"
