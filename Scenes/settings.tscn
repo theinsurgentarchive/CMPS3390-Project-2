@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3puls3sv7tyf"]
 
 [ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="1_i44u3"]
+[ext_resource type="Texture2D" uid="uid://xxqxcdf7wmdj" path="res://Sprites/MENU_ALT.png" id="1_lhmql"]
 [ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scripts/back_btn.gd" id="2_lhmql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaqfp"]
@@ -20,6 +21,12 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 652.0
 color = Color(0, 0.5527905, 0.5527904, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=1395740209]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_lhmql")
 
 [node name="MarginContainer2" type="MarginContainer" parent="." unique_id=756681560]
 custom_minimum_size = Vector2(360, 120)
