@@ -11,6 +11,8 @@ var projectilesSpawn: bool = true
 var db: Database
 var s: Score
 var time: Timer
+var p: Player
+var player: PackedScene = load("res://Scenes/player.tscn")
 var enemy: PackedScene = load("res://Scenes/Enemy.tscn")
 var enemies: Array = []
 var wave = 0
@@ -34,6 +36,12 @@ func _ready() -> void:
 	# Get score node
 	s = get_tree().root.get_node_or_null("Score")
 	assert(s != null, "Score node not found...")
+	
+	# Initialize Player Node
+	p = player.instantiate()
+	p.name = "Player"
+	get_tree().current_scene.add_child(p)
+	p.die.connect(_on_player_die)
 	
 	$Enemies.set_script(waveGen)
 	$Enemies.initialize(db, difficulty)

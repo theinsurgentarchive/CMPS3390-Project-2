@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cvi2m0mvoscl6"]
 
 [ext_resource type="PackedScene" uid="uid://4ngxvqmb6o8t" path="res://Scenes/hud.tscn" id="1_ej4tk"]
-[ext_resource type="PackedScene" uid="uid://cqmwe87630osr" path="res://Scenes/player.tscn" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://cd6206h8gw6sb" path="res://Scripts/gameplay.gd" id="1_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://ue6wcaqvm81p" path="res://Scenes/arena.tscn" id="2_kwrm5"]
 [ext_resource type="AudioStream" uid="uid://5mhbsyqs34hd" path="res://Resources/Action Phase.mp3" id="2_r8bcl"]
@@ -25,7 +24,3 @@ metadata/_edit_use_anchors_ = true
 [node name="Projectiles" type="Node" parent="." unique_id=1500112190 groups=["Projectiles"]]
 
 [node name="Enemies" type="Node" parent="." unique_id=1583425146 groups=["Enemies"]]
-
-[node name="Player" parent="." unique_id=836820942 instance=ExtResource("1_n4psk")]
-
-[connection signal="die" from="Player" to="." method="_on_player_die"]
