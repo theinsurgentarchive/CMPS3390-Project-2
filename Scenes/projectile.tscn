@@ -35,8 +35,9 @@ debug_color = Color(0.9137255, 0.27450982, 0.2627451, 0.41960785)
 [node name="Wall_Collision" type="CollisionShape2D" parent="." unique_id=2109491639]
 shape = SubResource("CircleShape2D_f8cdk")
 
-[node name="Timer" type="Timer" parent="." unique_id=1874893479]
+[node name="Life" type="Timer" parent="." unique_id=1874893479]
 wait_time = 10.0
 one_shot = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="Life" to="." method="_on_life_timeout"]

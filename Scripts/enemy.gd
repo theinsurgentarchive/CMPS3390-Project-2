@@ -73,7 +73,7 @@ func _ready() -> void:
 func _shoot():
 	var p = projectile.instantiate()
 	get_tree().current_scene.get_node("Projectiles").add_child(p)
-	p.setType(0, [], true)
+	p.setType([], true, [])
 	p.global_position = $Mussle.global_position
 	p.rotation = $Mussle.global_rotation
 	p.name = "E Projectile"

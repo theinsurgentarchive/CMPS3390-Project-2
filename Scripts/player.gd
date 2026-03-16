@@ -8,9 +8,10 @@ signal die
 @export var speed: float = 300.0
 var projectile: PackedScene = load("res://Scenes/projectile.tscn")
 var targets: Array
-var select: int = 0
+var selected: int = 0
 var weaponCount: int = 3
 var weaponCooldown: Array[Timer]
+var weaponModifers: Array[Array]
 var weapons: Array[Dictionary]
 var bodyAnim: Array = ["Idle", "Move"]
 
@@ -19,8 +20,8 @@ func initialize(weps: Array[Dictionary], mod: Array):
 	weapons = weps
 	print(weapons)
 	weaponCount = weapons.size()
-	# Instantiate weapon delays
 	for weapon in weapons:
+		# Instantiate weapon delays
 		var t = Timer.new()
 		t.autostart = false
 		t.one_shot = true
@@ -28,13 +29,17 @@ func initialize(weps: Array[Dictionary], mod: Array):
 		t.name = weapon["name"] + "Delay"
 		$Weapon/Delay.add_child(t)
 		weaponCooldown.append(t)
+		
+		#Instantiate weapon modifiers
+		var mods = weapon["mods"].split(",")
+		weaponModifers.append(mods)
 	
 	# Set modifiers
 	$Health.setMaxHealth(mod[0])
 	speed = mod[1]
-	select = mod[2]
+	selected = mod[2]
 	$Health.iFrameLength = mod[3]
-	$Weapon.play(weapons[select]["idle_anim"])
+	$Weapon.play(weapons[selected]["idle_anim"])
 
 func _ready() -> void:
 	$StartupDelay.start()
@@ -82,38 +87,45 @@ func wepHandler():
 		if (slot >= 10):
 			slot = 0
 		if Input.is_action_just_pressed("Slot_" + str(slot)):
-			select = i
+			selected = i
 			break
 	if Input.is_action_just_pressed("Slot_next"):
-		select = (select + 1) % weaponCount
+		selected = (selected + 1) % weaponCount
 	if Input.is_action_just_pressed("Slot_prev"):
-		if (select <= 0):
-			select = weaponCount - 1
+		if (selected <= 0):
+			selected = weaponCount - 1
 		else:
-			select -= 1
+			selected -= 1
 	
 	# Fire Weapon
 	if $Weapon.animation == "None":
 		return
 	if Input.is_action_pressed("Fire"):
-		var anim = weapons[select]["fire_anim"]
+		var anim = weapons[selected]["fire_anim"]
 		if $Weapon.animation != anim:
 			$Weapon.play(anim)
 			
 		# Initialize projectile to gameplay manager
-		if (checkProjectiles() && weaponCooldown[select].is_stopped()):
+		if (checkProjectiles() && weaponCooldown[selected].is_stopped()):
 			var p = projectile.instantiate()
 			get_tree().current_scene.get_node("Projectiles").add_child(p)
-			p.setType(select, targets, false)
+			var mods: Array = [
+				weapons[selected]["projectile"],
+				weapons[selected]["start_speed"],
+				weapons[selected]["speed"],
+				weapons[selected]["damage"],
+				weaponModifers[selected]
+			]
+			p.setType(targets, false, mods)
 			p.global_position = $Weapon/Mussle.global_position
 			p.rotation = $Weapon/Mussle.global_rotation
 			p.name = "P Projectile"
 			p.add_to_group("Projectiles")
 			
 			# Start weapon cooldown
-			weaponCooldown[select].start(weapons[select]["cooldown"])
+			weaponCooldown[selected].start(weapons[selected]["cooldown"])
 	else:
-		var anim = weapons[select]["idle_anim"]
+		var anim = weapons[selected]["idle_anim"]
 		if $Weapon.animation != anim:
 			$Weapon.play(anim)
 

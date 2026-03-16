@@ -14,11 +14,13 @@ CREATE TABLE IF NOT EXISTS weapon (
     id INTEGER,
     name VARCHAR(32) UNIQUE NOT NULL,
     damage REAL NOT NULL DEFAULT 1.0,
-    start_speed REAL NOT NULL DEFAULT 0.0
+    start_speed REAL NOT NULL DEFAULT 0.0,
     speed REAL NOT NULL DEFAULT 300.0,
-    cooldown REAL NOT NULL DEFAULT 0.0
+    cooldown REAL NOT NULL DEFAULT 0.0,
     idle_anim VARCHAR(64) NOT NULL,
     fire_anim VARCHAR(64) NOT NULL,
+    projectile VARCHAR(64) NOT NULL,
+    mods VARCHAR(64) NULL,
     PRIMARY KEY(id AUTOINCREMENT)
 );
 
@@ -36,12 +38,12 @@ CREATE TABLE IF NOT EXISTS enemy (
 );
 
 INSERT INTO weapon(
-    name, damage, start_speed, speed, 
-    cooldown, idle_anim, fire_anim
+    name, damage, start_speed, speed, cooldown,
+    idle_anim, fire_anim, projectile, mods
 ) VALUES
-('guns', 1.0, 750.0, 500.0, 0.1, "Guns_idle", "Gun_fire"),
-('rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle", "Rockets_fire")
-('railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle", "Railgun_fire"),
+('guns', 1.0, 750.0, 275.0, 0.1, "Guns_idle", "Gun_fire", "Bullet", NULL),
+('rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle", "Rockets_fire", "Rocket", "Seeking")
+('railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle", "Railgun_fire", "Slug", "Pierce,Large"),
 ON CONFLICT(name) DO NOTHING;
 
 INSERT INTO enemy(

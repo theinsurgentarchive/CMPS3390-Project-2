@@ -1,64 +1,61 @@
 class_name Projectile
 extends CharacterBody2D
 
-enum types {
-	BULLET,
-	ROCKET,
-	SLUG
-}
 
 @export var liveFor: float = 12.0
 @export var maxSpeed: float = 250.0
 @export var accel: float = 300.0
 @export var damage: float = 1.0
-@export var type: types = types.BULLET
 var target = null
 var currentSpeed = 0.0
 var rot_accel = 120.0
 var lastAngle = 0.0
 var enemy: bool
+var pierce: bool = false
+var seeking: bool = false
 
-func setType(select: int, bodies: Array, e: bool):
-	enemy = e
+func _ready() -> void:
+	$Life.start(liveFor)
+
+func setType(targets: Array, is_enemy: bool, mod: Array):
+	enemy = is_enemy
 	
-	# Wall Collision
+	# Projectile main collider on the Projectiles layer
 	collision_layer = 0
 	set_collision_layer_value(3, true)
 	
+	# Wall Collision Detection
 	collision_mask = 0
 	set_collision_mask_value(1, false)
 
-	# HitBox Collision
+	# HitBox collider lives on Projectiles layer
 	$HitBox.collision_layer = 0
 	$HitBox.set_collision_layer_value(3, true)
-	
 	$HitBox.collision_mask = 0
+	
+	# Set Projectile Parameters
 	if enemy:
 		$HitBox.set_collision_mask_value(2, true)
 		$Sprite.play("E_bullet")
 		currentSpeed = 50.0
-		
 		damage = 5.0
 	else:
 		$HitBox.set_collision_mask_value(4, true)
-		match select:
-			0:
-				$Sprite.play("Bullet")
-				type = types.BULLET
-				currentSpeed = 750.0
-				damage = 3.0
-			1:
-				$Sprite.play("Rocket")
-				type = types.ROCKET
-				setTarget(bodies)
-				currentSpeed = 50.0
-				damage = 10.0
-			2:
-				$Sprite.play("Slug")
-				type = types.SLUG
-				$HitBox/Collision.scale = Vector2(4.0, 4.0)
-				currentSpeed = 2000.0
-				damage = 40.0
+		$Sprite.play(mod[0])
+		currentSpeed = mod[1]
+		maxSpeed = mod[2]
+		damage = mod[3]
+		for i in mod[4]:
+			match i:
+				"Pierce":
+					pierce = true
+				"Large":
+					$HitBox/Collision.scale = Vector2(4.0, 4.0)
+				"Seeking":
+					seeking = true
+					setTarget(targets)
+				"None":
+					break
 	$HitBox.setDamage(damage)
 
 func setTarget(targets: Array):
@@ -73,17 +70,13 @@ func setTarget(targets: Array):
 			closest = t
 	target = closest
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	$Timer.timeout.connect(_on_timer_timeout)
-	$Timer.start(liveFor)
-
+# Remove itself from SceneTree if valid
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
 		return
 	
 	if area is HurtBox:
-		if type != types.SLUG:
+		if !pierce:
 			queue_free()
 	if (
 		enemy && area.owner.name.contains("P Projectile") ||
@@ -91,25 +84,25 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	):
 		queue_free()
 
-func _on_timer_timeout():
+# Removes itself from SceneTree if alive for too long
+func _on_life_timeout() -> void:
 	queue_free()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	match type:
-		types.BULLET:
-			pass
-		types.ROCKET:
-			if target != null:
-				lookAtSlowly(delta)
-		types.SLUG:
-			pass
+	# Start tracking if seeking
+	if seeking:
+		if target != null:
+			lookAtSlowly(delta)
+			
+	# Approach maxSpeed & set move direction
 	currentSpeed = move_toward(currentSpeed, maxSpeed, accel * delta)
 	velocity = Vector2.RIGHT.rotated(rotation) * currentSpeed
+	
+	# Remove itself from SceneTree if valid
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var object = collision.get_collider()
-		if type == types.SLUG:
+		if pierce:
 			if object.owner is Arena || object is Arena:
 				queue_free()
 		else:
