@@ -26,7 +26,7 @@ func setType(select: int, bodies: Array, e: bool):
 	set_collision_layer_value(3, true)
 	
 	collision_mask = 0
-	set_collision_mask_value(1, true)
+	set_collision_mask_value(1, false)
 
 	# HitBox Collision
 	$HitBox.collision_layer = 0
@@ -113,6 +113,8 @@ func _physics_process(delta: float) -> void:
 			if object.owner is Arena || object is Arena:
 				queue_free()
 		else:
+			if object.name.contains("Player") && !enemy:
+				return
 			queue_free()
 
 func lookAtSlowly(delta: float):

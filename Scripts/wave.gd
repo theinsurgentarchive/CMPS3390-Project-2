@@ -54,6 +54,7 @@ func randType() -> int:
 func genEnemy(type: int):
 	var e = enemy.instantiate()
 	get_tree().current_scene.get_node("Enemies").add_child(e)
+	e.name = "Enemy"
 	e.add_to_group("Enemies")
 	assert((type <= data.size() && type > -1), "Type not in range...")
 	assert(data[type] != null, "Enemy data not found...")

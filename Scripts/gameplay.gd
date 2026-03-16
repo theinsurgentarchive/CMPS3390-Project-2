@@ -24,6 +24,8 @@ func _ready() -> void:
 	time.one_shot = true
 	time.wait_time = 2.5
 	get_tree().current_scene.add_child(time)
+	connect("waveComplete", completeWave)
+	connect("waveStarting", startWave)
 	
 	# Get database node
 	db = get_tree().root.get_node_or_null("Database")
@@ -35,14 +37,38 @@ func _ready() -> void:
 	
 	$Enemies.set_script(waveGen)
 	$Enemies.initialize(db, difficulty)
+	connect("waveStarting", startWave)
+	connect("waveComplete", completeWave)
+
+func completeWave(wave: int):
+	$HudLayer/HUD/Wave/Text.text = "Wave " + str(wave) + " Finish"
+	$HudLayer/HUD/Wave.color = Color(0.376, 0.651, 0.253, 0.514)
+	$HudLayer/HUD/Wave.show()
+	var tween = create_tween()
+	tween.tween_property($HudLayer/HUD/Wave, "modulate:a", 1.0, 0.3).from(0.0)
+	await tween.finished
+	await get_tree().create_timer(2.2).timeout
+	$HudLayer/HUD/Wave.hide()
+
+func startWave(wave: int):
+	$HudLayer/HUD/Wave/Text.text = "Wave " + str(wave) + " Start"
+	$HudLayer/HUD/Wave.color = Color(0.847, 0.443, 0.184, 0.514)
+	$HudLayer/HUD/Wave.show()
+	var tween = create_tween()
+	tween.tween_property($HudLayer/HUD/Wave, "modulate:a", 1.0, 0.3).from(0.0)
+	await tween.finished
+	await get_tree().create_timer(2.2).timeout
+	$HudLayer/HUD/Wave.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var positionElement = $HudLayer/HUD/Position
 	var healthElement = $HudLayer/HUD/Health
+	var ScoreElement = $HudLayer/HUD/Score
 
 	positionElement.text = "Position: " + str($Player.position)
 	healthElement.text = "Health: " + str($Player/Health.getHealth())
+	ScoreElement.text = "Score: " + str(s.getScore())
 	
 	# Limit projectile count
 	var group = get_tree().get_nodes_in_group("Projectiles")
@@ -56,8 +82,9 @@ func _process(delta: float) -> void:
 	if enemies.is_empty():
 		if !waveOver:
 			waveOver = true
-			waveComplete.emit(wave)
-			print("Wave: %s Completed." % [wave])
+			if wave != 0:
+				waveComplete.emit(wave)
+				print("Wave: %s Completed." % [wave])
 			wave += 1
 			time.start()
 		if time.is_stopped():

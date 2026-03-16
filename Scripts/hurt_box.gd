@@ -7,10 +7,11 @@ signal gotHurt(damage: float)
 
 func _ready():
 	connect("area_entered", _on_area_entered)
-	
 
 func _on_area_entered(area: Area2D):
 	if self.owner is Player && area.owner.name.contains("P Projectile"):
+		return
+	if self.owner is Enemy && area.owner.name.contains("E Projectile"):
 		return
 	if area is HitBox:
 		var hp = health.health - area.damage

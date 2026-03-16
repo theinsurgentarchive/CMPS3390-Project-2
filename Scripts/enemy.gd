@@ -30,6 +30,7 @@ var timer: Timer = null
 var angle: float = 0.0
 var mode: modes = modes.APPROACH
 var orb_dir: int = 1
+var wait: bool = true
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area == null:
@@ -57,7 +58,7 @@ func initialize(a: Dictionary):
 			timer = Timer.new()
 			timer.autostart = true
 			timer.one_shot = false
-			timer.wait_time = 1.5
+			timer.wait_time = randf_range(1.5, 4.0)
 			timer.name = "ShootTimer"
 			timer.timeout.connect(_shoot)
 			add_child(timer)
@@ -66,7 +67,8 @@ func initialize(a: Dictionary):
 	initialized = true
 
 func _ready() -> void:
-	pass
+	await get_tree().create_timer(0.8).timeout
+	wait = false
 
 func _shoot():
 	var p = projectile.instantiate()
@@ -149,7 +151,7 @@ func typeOne(delta: float):
 			nav.target_position = target_pos + away_dir * flee_target
 
 func _physics_process(delta: float) -> void:
-	if !initialized:
+	if !initialized || wait:
 		return
 	moveHandler(delta)
 
