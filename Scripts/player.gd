@@ -12,10 +12,11 @@ var selected: int = 0
 var weaponCount: int = 3
 var weaponCooldown: Array[Timer]
 var weaponModifers: Array[Array]
+var weaponColor: Array[Array]
 var weapons: Array[Dictionary]
 var bodyAnim: Array = ["Idle", "Move"]
 var last_selected: int = -1
-var weapon_name_tween: Tween
+var weaponNameTween: Tween
 var star_rng := RandomNumberGenerator.new()
 
 func initialize(weps: Array[Dictionary], mod: Array):
@@ -36,6 +37,15 @@ func initialize(weps: Array[Dictionary], mod: Array):
 		# Instantiate weapon modifiers
 		var mods = weapon["mods"].split(",")
 		weaponModifers.append(mods)
+		
+		# get
+		var color: Array = weapon["color"].split(",")
+		color = color.map(
+			func(elem):
+				return float(elem)
+		)
+		print(color)
+		weaponColor.append(color)
 	
 	# Set modifiers
 	$Health.setMaxHealth(mod[0])
@@ -192,20 +202,10 @@ func show_weapon_name() -> void:
 	var label = get_tree().current_scene.get_node("HudLayer/HUD/WeaponName") as Label
 	var weapon_text := ""
 	var weapon_color := Color.WHITE
-
-	match selected:
-		0:
-			weapon_text = "LASER"
-			weapon_color = Color(0.2, 0.55, 1.0)
-		1:
-			weapon_text = "ROCKETS"
-			weapon_color = Color(0.45, 0.0, 0.0)
-		2:
-			weapon_text = "SNIPE"
-			weapon_color = Color(0.65, 0.2, 1.0)
-		_:
-			weapon_text = str(weapons[selected]["name"]).to_upper()
-			weapon_color = Color.WHITE
+	var color = weaponColor[selected]
+	
+	weapon_text = weapons[selected]["name"].to_upper()
+	weapon_color = Color(color[0],color[1],color[2],color[3])
 
 	label.text = weapon_text
 	label.visible = true
@@ -219,14 +219,14 @@ func show_weapon_name() -> void:
 
 	spawn_weapon_name_stars(label)
 
-	if weapon_name_tween != null and weapon_name_tween.is_valid():
-		weapon_name_tween.kill()
+	if weaponNameTween != null and weaponNameTween.is_valid():
+		weaponNameTween.kill()
 
-	weapon_name_tween = create_tween()
-	weapon_name_tween.tween_property(label, "modulate:a", 1.0, 0.2)
-	weapon_name_tween.tween_interval(0.8)
-	weapon_name_tween.tween_property(label, "modulate:a", 0.0, 0.8)
-	await weapon_name_tween.finished
+	weaponNameTween = create_tween()
+	weaponNameTween.tween_property(label, "modulate:a", 1.0, 0.2)
+	weaponNameTween.tween_interval(0.8)
+	weaponNameTween.tween_property(label, "modulate:a", 0.0, 0.8)
+	await weaponNameTween.finished
 	if is_instance_valid(label):
 		label.visible = false
 

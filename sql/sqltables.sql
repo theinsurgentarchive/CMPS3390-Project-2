@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS weapon (
     fire_anim VARCHAR(64) NOT NULL,
     projectile VARCHAR(64) NOT NULL,
     mods VARCHAR(64) NULL,
+    color VARCHAR(64) NOT NULL DEFAULT '1.0,1.0,1.0,1.0',
     PRIMARY KEY(id AUTOINCREMENT)
 );
 
@@ -41,9 +42,18 @@ INSERT INTO weapon(
     name, damage, start_speed, speed, cooldown,
     idle_anim, fire_anim, projectile, mods
 ) VALUES
-('guns', 1.0, 750.0, 275.0, 0.1, "Guns_idle", "Gun_fire", "Bullet", "null"),
-('rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle", "Rockets_fire", "Rocket", "Seeking"),
-('railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle", "Railgun_fire", "Slug", "Pierce,Large")
+(
+    'cannons', 1.0, 750.0, 275.0, 0.1, "Guns_idle",
+    "Gun_fire", "Bullet", "null", "0.0,0.388,0.795,1.0"
+),
+(
+    'rockets', 10.0, 50.0, 300.0, 0.25, "Rockets_idle",
+    "Rockets_fire", "Rocket", "Seeking", "0.45,0.0,0.0,1"
+),
+(
+    'railgun', 40, 2000.0, 1500.0, 2.5, "Railgun_idle",
+    "Railgun_fire", "Slug", "Pierce,Large", "0.543,0.003,0.866,1.0"
+)
 ON CONFLICT(name) DO NOTHING;
 
 INSERT INTO enemy(
