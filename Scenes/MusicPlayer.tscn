@@ -3,5 +3,6 @@
 [ext_resource type="AudioStream" uid="uid://b1b85pii5xhxb" path="res://Resources/An Easy Flight.mp3" id="1_5psdy"]
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" unique_id=841800671]
+process_mode = 3
 stream = ExtResource("1_5psdy")
 parameters/looping = true

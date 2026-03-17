@@ -23,6 +23,9 @@ func togglePause():
 		return
 	if !visible:
 		$Background/Score.text = "Score: " + str(score.getScore())
+		MusicPlayer.play()
+	else:
+		MusicPlayer.stop()
 	visible = !visible
 	get_tree().paused = !get_tree().paused
 
