@@ -10,11 +10,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_8erm5"]
 radius = 556.0036
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3smsa"]
-size = Vector2(66, 66)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ek2"]
 size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3smsa"]
+size = Vector2(66, 66)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
 radius = 32.01562
@@ -73,16 +73,6 @@ collision_mask = 32
 shape = SubResource("CircleShape2D_8erm5")
 debug_color = Color(0.3019608, 0.6, 0.18039216, 0.34901962)
 
-[node name="HitBox" type="Area2D" parent="." unique_id=835729291]
-collision_layer = 0
-collision_mask = 8
-script = ExtResource("5_x3wgy")
-metadata/_custom_type_script = "uid://b7heg2fbypyyh"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1868724688]
-shape = SubResource("RectangleShape2D_3smsa")
-debug_color = Color(0, 0.56078434, 0.89411765, 0.18431373)
-
 [node name="HurtBox" type="Area2D" parent="." unique_id=1262522507 node_paths=PackedStringArray("health")]
 collision_layer = 2
 collision_mask = 20
@@ -93,6 +83,16 @@ metadata/_custom_type_script = "uid://cqdimgirurmut"
 [node name="Collision" type="CollisionShape2D" parent="HurtBox" unique_id=1627737358]
 shape = SubResource("RectangleShape2D_f1ek2")
 debug_color = Color(0.91498876, 0.2732647, 0.26128647, 0.41960785)
+
+[node name="HitBox" type="Area2D" parent="." unique_id=835729291]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_x3wgy")
+metadata/_custom_type_script = "uid://b7heg2fbypyyh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1868724688]
+shape = SubResource("RectangleShape2D_3smsa")
+debug_color = Color(0, 0.56078434, 0.89411765, 0.18431373)
 
 [node name="WallCollide" type="CollisionShape2D" parent="." unique_id=1571489586]
 position = Vector2(-1.9073486e-06, 0)
