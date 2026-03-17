@@ -89,14 +89,11 @@ func moveHandler(delta):
 	match type:
 		0:
 			nav.target_position = target.global_position
-			direction = global_position.direction_to(nav.get_next_path_position())
-			nav.velocity = direction * speed / 2
 			
-			# velocity = Vector2.RIGHT.rotated(rotation) * speed
 		1:
 			typeOne(delta)
 	var next_pos := nav.get_next_path_position()
-	var direction := (next_pos - global_position).normalized()
+	direction = (next_pos - global_position).normalized()
 	nav.velocity = direction * speed
 
 func typeOne(delta: float):

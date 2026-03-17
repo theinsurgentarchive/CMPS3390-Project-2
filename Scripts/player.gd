@@ -69,7 +69,7 @@ func _on_health_health_empty() -> void:
 	if !$Health.getInvul():
 		die.emit()
 	
-func moveHandler(delta: float):
+func moveHandler(_delta: float):
 	var dir := Input.get_vector("Left", "Right", "Up", "Down")
 	var mouse_pos = get_global_mouse_position()
 	var anim: String
@@ -298,7 +298,7 @@ func wepHandler():
 func checkProjectiles() -> bool:
 	return get_tree().current_scene.get("projectilesSpawn")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Remove targets that have left the SceneTree
 	targets = targets.filter(
 		func(target):

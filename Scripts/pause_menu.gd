@@ -14,7 +14,7 @@ func _ready() -> void:
 	score = get_tree().root.get_node("Score")
 	assert(score != null, "Score node not found...")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Pause"):
 		togglePause()
 

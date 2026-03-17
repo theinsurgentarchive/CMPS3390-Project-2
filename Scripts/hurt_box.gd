@@ -12,7 +12,7 @@ func _ready():
 func _on_area_exited(area: Area2D):
 	areas.erase(area)
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	areas = areas.filter(
 		func(elem):
 			return is_instance_valid(elem)

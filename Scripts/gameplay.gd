@@ -19,7 +19,7 @@ var p: Player
 var player: PackedScene = load("res://Scenes/player.tscn")
 var enemy: PackedScene = load("res://Scenes/Enemy.tscn")
 var enemies: Array = []
-var wave: int = 0
+var waveNum: int = 0
 var waveOver: bool = false
 var pauseReturn: bool = false
 var wave_one_hint_shown: bool = false
@@ -109,7 +109,7 @@ func show_wave_one_weapon_hint() -> void:
 	if is_instance_valid(hint):
 		hint.visible = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var positionElement = $HudLayer/HUD/Position
 	var healthElement = $HudLayer/HUD/Health
 	var ScoreElement = $HudLayer/HUD/Score
@@ -128,23 +128,23 @@ func _process(delta: float) -> void:
 	if enemies.is_empty():
 		if !waveOver:
 			waveOver = true
-			if wave != 0:
-				waveComplete.emit(wave)
-				print("Wave: %s Completed." % [wave])
-			wave += 1
+			if waveNum != 0:
+				waveComplete.emit(waveNum)
+				print("Wave: %s Completed." % [waveNum])
+			waveNum += 1
 			time.start()
 
 		if time.is_stopped():
 			if waveOver:
 				waveOver = false
-				waveStarting.emit(wave)
+				waveStarting.emit(waveNum)
 
-			enemies = $Enemies.genWave(wave)
+			enemies = $Enemies.genWave(waveNum)
 			for e in enemies:
 				e.enemyDeath.connect(_on_enemy_death)
-			print("Spawned Wave: %s" % [wave])
+			print("Spawned Wave: %s" % [waveNum])
 
-			if wave == 1 and !wave_one_hint_shown:
+			if waveNum == 1 and !wave_one_hint_shown:
 				show_wave_one_weapon_hint()
 
 func _on_player_die() -> void:
