@@ -1,12 +1,22 @@
 class_name Database
 extends Node
 
+const DATABASE_RES = "res://sql/data.db"
+const DATABASE_USER = "user://data.db"
+
 var db: SQLite
 
 func _ready() -> void:
 	# Create database connection
+	var dir = DirAccess.open("user://")
+	# Check if the database file exists in the user path; if not, copy it from resources
+	if !dir.file_exists(DATABASE_USER):
+		var db_file_content: PackedByteArray = FileAccess.get_file_as_bytes(DATABASE_RES)
+		var file: FileAccess = FileAccess.open(DATABASE_USER, FileAccess.WRITE)
+		file.store_buffer(db_file_content)
+		file.close()
 	db = SQLite.new()
-	db.path = "res://sql/data.db"
+	db.path = DATABASE_USER
 	var dbOK: bool = db.open_db()
 	assert(dbOK, "Database connection failed...")
 	print("Database: DB opened successfully (res://sql/data.db).")
