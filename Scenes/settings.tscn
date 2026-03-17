@@ -1,8 +1,105 @@
 [gd_scene format=3 uid="uid://b3puls3sv7tyf"]
 
+<<<<<<< Updated upstream
 [node name="Settings" type="Node2D" unique_id=274214131]
+=======
+[ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="1_i44u3"]
+[ext_resource type="Script" uid="uid://bjllw2eo8vobj" path="res://Scenes/settings.gd" id="1_j2dne"]
+[ext_resource type="Texture2D" uid="uid://xxqxcdf7wmdj" path="res://Sprites/MENU_ALT.png" id="1_lhmql"]
+[ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scripts/back_btn.gd" id="2_lhmql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aaqfp"]
+atlas = ExtResource("1_i44u3")
+region = Rect2(244, 332, 450, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2dne"]
+atlas = ExtResource("1_i44u3")
+region = Rect2(936, 331, 472, 265)
+
+[node name="Settings" type="Control" unique_id=1855245396]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_j2dne")
+>>>>>>> Stashed changes
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2144036394]
 offset_right = 1144.0
 offset_bottom = 644.0
 color = Color(0, 0.5527905, 0.5527904, 1)
+<<<<<<< Updated upstream
+=======
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=1395740209]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_lhmql")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=756681560]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 0
+offset_left = -30.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 130.0
+scale = Vector2(0.8, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2" unique_id=540357567]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="BackBtn" type="TextureButton" parent="MarginContainer2/VBoxContainer" unique_id=1349318407]
+clip_contents = true
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_aaqfp")
+texture_hover = SubResource("AtlasTexture_j2dne")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_lhmql")
+
+[node name="Volume" type="Node" parent="." unique_id=834058034]
+
+[node name="VolLabel" type="Label" parent="Volume" unique_id=1474608486]
+offset_left = 510.0
+offset_top = 64.0
+offset_right = 773.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 32
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="Volume" unique_id=1987114462]
+offset_left = 478.0
+offset_top = 122.0
+offset_right = 777.0
+offset_bottom = 138.0
+max_value = 1.0
+step = 0.05
+tick_count = 4
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Difficulty" type="Node" parent="." unique_id=1706855441]
+
+[node name="DiffLabel" type="Label" parent="Difficulty" unique_id=1068004689]
+offset_left = 510.0
+offset_top = 160.0
+offset_right = 773.0
+offset_bottom = 205.0
+theme_override_font_sizes/font_size = 32
+text = "Difficulty"
+
+[node name="DifficultySlider" type="HSlider" parent="Difficulty" unique_id=756492831]
+offset_left = 478.0
+offset_top = 220.0
+offset_right = 777.0
+offset_bottom = 236.0
+max_value = 1.0
+step = 0.05
+tick_count = 4
+ticks_on_borders = true
+ticks_position = 3
+
+[connection signal="value_changed" from="Volume/VolumeSlider" to="Volume/VolumeSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="Difficulty/DifficultySlider" to="Difficulty/DifficultySlider" method="_on_value_changed"]
+>>>>>>> Stashed changes

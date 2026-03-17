@@ -15,6 +15,19 @@ run/main_scene="uid://c8crrvfb741yg"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Sprites/icon.svg"
 
+<<<<<<< Updated upstream
+=======
+[audio]
+
+buses/default_bus_layout="uid://d1m7s6exhmtj"
+
+[autoload]
+
+SceneHistory="*uid://b2tnqk2ewbtfx"
+MusicPlayer="*uid://dq2kmwoca2f83"
+GameSettings="*uid://imn7f6ig0rbd"
+
+>>>>>>> Stashed changes
 [editor]
 
 version_control/plugin_name="GitPlugin"
