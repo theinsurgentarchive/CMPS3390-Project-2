@@ -160,6 +160,7 @@ func _on_enemy_death(value: int, e: Enemy) -> void:
 func gameOver():
 	if is_instance_valid($Player):
 		$Player.queue_free()
+	assert(get_tree() != null, "SceneTree MISSING ERROR")
 	get_tree().change_scene_to_file("res://Scenes/gameover.tscn")
 
 func _on_pause_menu_emit() -> void:

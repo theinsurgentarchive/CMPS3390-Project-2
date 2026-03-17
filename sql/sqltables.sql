@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS enemy (
 
 INSERT INTO weapon(
     name, damage, start_speed, speed, cooldown,
-    idle_anim, fire_anim, projectile, mods
+    idle_anim, fire_anim, projectile, mods, color
 ) VALUES
 (
     'cannons', 1.0, 750.0, 275.0, 0.1, "Guns_idle",

@@ -161,6 +161,7 @@ Pause={
 2d_physics/layer_4="EnemyHurtBox"
 2d_physics/layer_5="EnemyHitBox"
 2d_physics/layer_6="enemy_body"
+2d_physics/layer_7="PlayerHitBox"
 
 [physics]
 

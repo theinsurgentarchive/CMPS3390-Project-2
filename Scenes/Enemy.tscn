@@ -41,7 +41,7 @@ texture = ExtResource("3_cyxbf")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1044999573 node_paths=PackedStringArray("health")]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 68
 script = ExtResource("4_cyxbf")
 health = NodePath("../Health")
 metadata/_custom_type_script = "uid://cqdimgirurmut"

@@ -18,6 +18,7 @@ var bodyAnim: Array = ["Idle", "Move"]
 var last_selected: int = -1
 var weaponNameTween: Tween
 var star_rng := RandomNumberGenerator.new()
+var flash: bool = false
 
 func initialize(weps: Array[Dictionary], mod: Array):
 	# Get weapons
@@ -38,7 +39,7 @@ func initialize(weps: Array[Dictionary], mod: Array):
 		var mods = weapon["mods"].split(",")
 		weaponModifers.append(mods)
 		
-		# get
+		# Get weapon label color
 		var color: Array = weapon["color"].split(",")
 		color = color.map(
 			func(elem):
@@ -305,8 +306,13 @@ func _process(delta: float) -> void:
 		func(target):
 			return is_instance_valid(target)
 	)
+	if $Health.getInvul():
+		flash = !flash
+	else:
+		flash = false
 
 func _physics_process(delta: float) -> void:
+	modulate = Color(0.878, 0.0, 0.0, 0.722) if flash else Color.WHITE
 	moveHandler(delta)
 	wepHandler()
 
