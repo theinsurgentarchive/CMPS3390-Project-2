@@ -27,6 +27,30 @@ scale = Vector2(3, 3)
 [node name="HUD" parent="HudLayer" unique_id=678604282 instance=ExtResource("1_ej4tk")]
 metadata/_edit_use_anchors_ = true
 
+[node name="WeaponHint" type="Label" parent="HudLayer/HUD" unique_id=521638360]
+visible = false
+layout_mode = 0
+offset_left = 155.0
+offset_top = 530.0
+offset_right = 996.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "TIP TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponName" type="Label" parent="HudLayer/HUD" unique_id=999194293]
+visible = false
+layout_mode = 0
+offset_left = 487.5
+offset_top = 551.0
+offset_right = 663.5
+offset_bottom = 603.0
+theme_override_font_sizes/font_size = 35
+text = "WEAPON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PauseMenu" parent="HudLayer" unique_id=1958796839 instance=ExtResource("5_r8bcl")]
 
 [connection signal="emit" from="HudLayer/PauseMenu" to="." method="_on_pause_menu_emit"]

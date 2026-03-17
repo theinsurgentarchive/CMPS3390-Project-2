@@ -22,6 +22,7 @@ var enemies: Array = []
 var wave: int = 0
 var waveOver: bool = false
 var pauseReturn: bool = false
+var wave_one_hint_shown: bool = false
 
 func _ready() -> void:
 	$HudLayer/PauseMenu.visible = false
@@ -59,6 +60,15 @@ func _ready() -> void:
 	$Enemies.set_script(waveGen)
 	$Enemies.initialize(db, difficulty)
 
+	# Hide weapon tutorial UI at start
+	if has_node("HudLayer/HUD/WeaponHint"):
+		$HudLayer/HUD/WeaponHint.visible = false
+		$HudLayer/HUD/WeaponHint.modulate.a = 0.0
+
+	if has_node("HudLayer/HUD/WeaponName"):
+		$HudLayer/HUD/WeaponName.visible = false
+		$HudLayer/HUD/WeaponName.modulate.a = 0.0
+
 func completeWave(wave: int):
 	$HudLayer/HUD/Wave/Text.text = "Wave " + str(wave) + " Finish"
 	$HudLayer/HUD/Wave.color = Color(0.376, 0.651, 0.253, 0.514)
@@ -78,6 +88,26 @@ func startWave(wave: int):
 	await tween.finished
 	await get_tree().create_timer(2.2).timeout
 	$HudLayer/HUD/Wave.hide()
+
+func show_wave_one_weapon_hint() -> void:
+	if wave_one_hint_shown:
+		return
+	if !has_node("HudLayer/HUD/WeaponHint"):
+		return
+
+	wave_one_hint_shown = true
+	var hint = $HudLayer/HUD/WeaponHint
+	hint.text = "Scroll or use num keys to change weapons"
+	hint.visible = true
+	hint.modulate.a = 0.0
+
+	var tween = create_tween()
+	tween.tween_property(hint, "modulate:a", 1.0, 0.35)
+	tween.tween_interval(3.0)
+	tween.tween_property(hint, "modulate:a", 0.0, 1.0)
+	await tween.finished
+	if is_instance_valid(hint):
+		hint.visible = false
 
 func _process(delta: float) -> void:
 	var positionElement = $HudLayer/HUD/Position
@@ -113,6 +143,9 @@ func _process(delta: float) -> void:
 			for e in enemies:
 				e.enemyDeath.connect(_on_enemy_death)
 			print("Spawned Wave: %s" % [wave])
+
+			if wave == 1 and !wave_one_hint_shown:
+				show_wave_one_weapon_hint()
 
 func _on_player_die() -> void:
 	if pauseReturn:
