@@ -5,4 +5,5 @@
 [node name="MusicPlayer" type="AudioStreamPlayer2D" unique_id=841800671]
 process_mode = 3
 stream = ExtResource("1_5psdy")
+volume_db = -15.0
 parameters/looping = true

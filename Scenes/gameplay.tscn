@@ -11,6 +11,7 @@ script = ExtResource("1_oe8ih")
 
 [node name="ActionPhase" type="AudioStreamPlayer" parent="." unique_id=1944022973]
 stream = ExtResource("2_r8bcl")
+volume_db = -25.0
 autoplay = true
 parameters/looping = true
 
