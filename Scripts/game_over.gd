@@ -28,25 +28,25 @@ func _ready() -> void:
 	if !MusicPlayer.playing:
 		MusicPlayer.play()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_button_pressed() -> void:
 	if selected:
 		return
-	var name: String = $UserInput.text.strip_edges()
-	if name == "":
+	var pName: String = $UserInput.text.strip_edges()
+	if pName == "":
 		return
-	_on_line_edit_text_submitted(name)
+	_on_line_edit_text_submitted(pName)
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	if selected:
 		return
-	var name: String = new_text.strip_edges()
-	if name == "":
+	var pName: String = new_text.strip_edges()
+	if pName == "":
 		return
-	data.addScore(value, name)
-	print("GAME_OVER: submitted name='" + name + "' score=" + str(value))
+	data.addScore(value, pName)
+	print("GAME_OVER: submitted name='" + pName + "' score=" + str(value))
 	$Score.text = "Score added to Leaderboard, returning to Main Menu."
 	selected = true
 	await get_tree().create_timer(2.0).timeout

@@ -87,13 +87,27 @@ func addScore(score: int, n: String):
 
 		print("Database: SAVED SCORE (new) -> name='" + n + "' id=" + str(pid) + " score=" + str(score))
 
+func deleteScore(id: int) -> bool:
+	var select = db.select_rows("leaderboard", "id == %s" % [id], ["*"])
+	if select == null:
+		print("No Score found...")
+		return false
+	elif select.size() > 1:
+		print("Duplicates Found...")
+		return false
+	else:
+		var row = db.delete_rows("leaderboard", "id == %s" % [id])
+		assert(row != null, "Row delete failed...")
+	print("Row Successfully deleted")
+	return true
+
 # [{"name": "PlayerName", "score": 1234}, ...]
 # array index is the row's rank
 func get_leaderboard(limit: int = 15) -> Array:
-	print("Database: Reading leaderboard from FORCED DB: " + db.path)
+	print("Database: Reading leaderboard...")
 
 	var query = """
-		SELECT p.name AS name, l.score AS score
+		SELECT p.name AS name, l.score AS score, l.id AS id
 		FROM leaderboard l
 		INNER JOIN player p ON p.id = l.id
 		ORDER BY l.score DESC
@@ -110,9 +124,9 @@ func get_leaderboard(limit: int = 15) -> Array:
 	for r in db.query_result:
 		rows.append({
 			"rank": rank,
+			"id": r.get("id"),
 			"name": str(r.get("name", "")),
 			"score": int(r.get("score", 0))
 		})
 		rank += 1
-
 	return rows

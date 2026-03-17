@@ -64,6 +64,26 @@ void fragment() {
 	mat.set_shader_parameter("brightness", brightness)
 	return mat
 
+func delScore(id: int):
+	$Popup.hide()
+	if !data.deleteScore(id):
+		print("id %s Not Found in Database..." % [str(id)])
+	refresh()
+
+func hidePopup():
+	$Popup.hide()
+
+func popup(args: Array):
+	$Popup/Yes.id = args[0]
+	var Name = args[1]
+	$Popup.show()
+	$Popup/Label.text = "Delete Score of %s?" % [Name]
+	if !$Popup/Yes.confirmed.is_connected(delScore):
+		$Popup/Yes.confirmed.connect(delScore)
+	if !$Popup/No.denied.is_connected(hidePopup):
+		$Popup/No.denied.connect(hidePopup)
+	
+
 func refresh() -> void:
 	# Clear old rows
 	for child in scores_list.get_children():
@@ -83,8 +103,12 @@ func refresh() -> void:
 	var idx := 0
 	for row in rows:
 		var h := HBoxContainer.new()
+		var c := Button.new()
+		
 		h.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-
+		c.size_flags_horizontal = Control.SIZE_FILL
+		c.text = "DELETE"
+		c.pressed.connect(popup.bind([row["id"], row["name"]]))
 		var rank_lbl := Label.new()
 		rank_lbl.text = "#%d" % int(row["rank"])
 		rank_lbl.custom_minimum_size.x = 60
@@ -104,6 +128,7 @@ func refresh() -> void:
 			name_lbl.material = rainbow_mat
 			score_lbl.material = rainbow_mat
 
+		h.add_child(c)
 		h.add_child(rank_lbl)
 		h.add_child(name_lbl)
 		h.add_child(score_lbl)

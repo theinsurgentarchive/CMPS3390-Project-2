@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://di4thio1v3opa" path="res://Sprites/Glowing leaderboard with pixelated star.png" id="2_n6tc2"]
 [ext_resource type="Texture2D" uid="uid://dgnmbm80vntlw" path="res://Sprites/BACK ARROWS.png" id="3_l7afy"]
 [ext_resource type="Script" uid="uid://dkxr4q5jcm0gj" path="res://Scripts/back_btn.gd" id="4_n0wk5"]
+[ext_resource type="Script" uid="uid://264ym37kdg71" path="res://Scripts/Popup.gd" id="7_k624t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0wk5"]
 atlas = ExtResource("3_l7afy")
@@ -29,9 +30,7 @@ color = Color(0.2004275, 0.45099533, 0.19081166, 1)
 
 [node name="Background" type="TextureRect" parent="ColorRect" unique_id=145181461]
 layout_mode = 0
-offset_left = -40.0
-offset_top = -5.0
-offset_right = 1153.0
+offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("2_6rpn1")
 expand_mode = 1
@@ -86,5 +85,64 @@ texture_hover = SubResource("AtlasTexture_l7afy")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("4_n0wk5")
+
+[node name="Popup" type="ColorRect" parent="." unique_id=233032537]
+visible = false
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.16862746, 0.16862746, 0.16862746, 0.70980394)
+
+[node name="Label" type="Label" parent="Popup" unique_id=134739440]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -11.5
+offset_right = 144.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "DELETE  SCORE OF <NAME>?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Yes" type="Button" parent="Popup" unique_id=840822934]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 49.5
+offset_right = -48.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CONFIRM"
+script = ExtResource("7_k624t")
+
+[node name="No" type="Button" parent="Popup" unique_id=1724321783]
+modulate = Color(0.9803874, 3.3210217e-06, 3.85046e-07, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = 49.5
+offset_right = 144.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CANCEL"
+script = ExtResource("7_k624t")
+type = 1
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/BackBtn" to="." method="_on_back_pressed"]
