@@ -312,7 +312,7 @@ func _process(delta: float) -> void:
 		flash = false
 
 func _physics_process(delta: float) -> void:
-	modulate = Color(0.878, 0.0, 0.0, 0.722) if flash else Color.WHITE
+	modulate = Color(1.0, 0.247, 0.188, 0.714) if flash else Color.WHITE
 	moveHandler(delta)
 	wepHandler()
 
