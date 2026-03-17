@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://d1m7s6exhmtj"
 
 SceneHistory="*uid://b2tnqk2ewbtfx"
 MusicPlayer="*uid://dq2kmwoca2f83"
+GameSettings="*uid://imn7f6ig0rbd"
 
 [editor]
 
