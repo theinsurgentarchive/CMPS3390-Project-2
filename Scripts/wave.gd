@@ -62,6 +62,8 @@ func genEnemy(type: int):
 	a[1] = type
 	a[2] = data[type]["health"]
 	a[3] = data[type]["damage"]
+	if difficulty > 1:
+		a[3] *= 1 + difficulty / 2
 	a[4] = data[type]["speed"]
 	a[5] = data[type]["worth"]
 	a[6] = load(data[type]["sprite"])
