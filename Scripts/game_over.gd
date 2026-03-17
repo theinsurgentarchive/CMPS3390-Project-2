@@ -25,6 +25,8 @@ func _ready() -> void:
 
 	value = score.getScore()
 	$Score.text = "Score: " + str(value)
+	if !MusicPlayer.playing:
+		MusicPlayer.play()
 
 func _process(delta: float) -> void:
 	pass
