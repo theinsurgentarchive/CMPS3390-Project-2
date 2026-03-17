@@ -132,3 +132,4 @@ func gameOver():
 
 func _on_pause_menu_emit() -> void:
 	pauseReturn = true
+	$ActionPhase.stop()
