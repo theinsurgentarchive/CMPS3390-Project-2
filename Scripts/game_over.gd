@@ -12,11 +12,11 @@ func _ready() -> void:
 		var db: Database = Database.new()
 		db.name = "Database"
 		get_tree().root.add_child(db)
-		print_debug("GAME_OVER: Database created at /root/Database")
+		print("GAME_OVER: Database created at /root/Database")
 		data = db
 	else:
 		data = existing as Database
-		print_debug("GAME_OVER: Found Database at /root/Database")
+		print("GAME_OVER: Found Database at /root/Database")
 
 	assert(data != null, "Database node not found...")
 
@@ -46,7 +46,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 	if name == "":
 		return
 	data.addScore(value, name)
-	print_debug("GAME_OVER: submitted name='" + name + "' score=" + str(value))
+	print("GAME_OVER: submitted name='" + name + "' score=" + str(value))
 	$Score.text = "Score added to Leaderboard, returning to Main Menu."
 	selected = true
 	await get_tree().create_timer(2.0).timeout

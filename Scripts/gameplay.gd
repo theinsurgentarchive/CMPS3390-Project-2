@@ -154,8 +154,8 @@ func _on_player_die() -> void:
 
 func _on_enemy_death(value: int, e: Enemy) -> void:
 	s.setScore(s.score + value)
+	print(e.name + " died")
 	enemies.erase(e)
-	print("Enemy died")
 
 func gameOver():
 	if is_instance_valid($Player):

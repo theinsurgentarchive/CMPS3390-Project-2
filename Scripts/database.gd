@@ -19,7 +19,7 @@ func _ready() -> void:
 	db.path = DATABASE_USER
 	var dbOK: bool = db.open_db()
 	assert(dbOK, "Database connection failed...")
-	print("Database: DB opened successfully (res://sql/data.db).")
+	print("Database: DB opened successfully")
 	
 	# Run startup script
 	var q: String = FileAccess.get_file_as_string("res://sql/sqltables.sql")

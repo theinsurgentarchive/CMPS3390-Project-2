@@ -24,11 +24,11 @@ func _ready() -> void:
 		var db: Database = Database.new()
 		db.name = "Database"
 		get_tree().root.add_child(db)
-		print_debug("LEADERBOARDS: Database created at /root/Database")
+		print("LEADERBOARDS: Database created at /root/Database")
 		data = db
 	else:
 		data = existing as Database
-		print_debug("LEADERBOARDS: Found Database at /root/Database")
+		print("LEADERBOARDS: Found Database at /root/Database")
 
 	assert(data != null, "Database node not found...")
 	refresh()

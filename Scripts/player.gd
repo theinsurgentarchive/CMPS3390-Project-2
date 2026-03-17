@@ -23,7 +23,6 @@ var flash: bool = false
 func initialize(weps: Array[Dictionary], mod: Array):
 	# Get weapons
 	weapons = weps
-	print(weapons)
 	weaponCount = weapons.size()
 	for weapon in weapons:
 		# Instantiate weapon delays
@@ -45,7 +44,6 @@ func initialize(weps: Array[Dictionary], mod: Array):
 			func(elem):
 				return float(elem)
 		)
-		print(color)
 		weaponColor.append(color)
 	
 	# Set modifiers

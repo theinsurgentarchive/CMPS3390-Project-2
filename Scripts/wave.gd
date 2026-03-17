@@ -38,7 +38,7 @@ func genWeights(items: Array):
 		var key = item["id"]
 		var value = item["weight"]
 		weights[key] = value
-	prints(weights)
+		print(item["name"] + ": " + str(item["weight"]))
 
 func randType() -> int:
 	var sum := 0
